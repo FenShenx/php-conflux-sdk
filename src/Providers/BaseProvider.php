@@ -2,16 +2,21 @@
 
 namespace Fenshenx\PhpConfluxSdk\Providers;
 
+use Psr\Log\LoggerInterface;
+
 abstract class BaseProvider implements IProvider
 {
     protected string $url;
 
     protected int $timeout;
 
-    public function __construct(string $url, int $timeout = 30 * 1000)
+    protected LoggerInterface $logger;
+
+    public function __construct(string $url, int $timeout = 30 * 1000, LoggerInterface $logger = null)
     {
         $this->url = $url;
         $this->timeout = $timeout;
+        $this->logger = $logger;
     }
 
     abstract protected function request($data);
