@@ -11,7 +11,7 @@ abstract class BaseProvider implements IProvider
 
     protected int $timeout;
 
-    protected LoggerInterface $logger;
+    protected LoggerInterface|null $logger;
 
     private $version = "2.0";
 
