@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk\Providers;
 
+use Fenshenx\PhpConfluxSdk\Providers\Exceptions\JsonRpcErrorException;
 use Psr\Log\LoggerInterface;
 
 abstract class BaseProvider implements IProvider
@@ -21,6 +22,11 @@ abstract class BaseProvider implements IProvider
         $this->logger = $logger;
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     * @throws JsonRpcErrorException
+     */
     abstract protected function request($data);
 
     private function getJsonRpcVersion(): string
