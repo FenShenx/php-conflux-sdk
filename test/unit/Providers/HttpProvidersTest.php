@@ -2,6 +2,7 @@
 
 namespace Test\Unit\Providers;
 
+use Fenshenx\PhpConfluxSdk\Providers\Exceptions\HttpJsonRpcErrorException;
 use Fenshenx\PhpConfluxSdk\Providers\HttpProvider;
 use Test\TestCase;
 
@@ -37,5 +38,13 @@ final class HttpProvidersTest extends TestCase
         foreach ($resArr as $item) {
             $this->assertSame($item['jsonrpc'], $provider->getJsonRpcVersion());
         }
+    }
+
+    public function testSendException()
+    {
+        $this->expectException(HttpJsonRpcErrorException::class);
+
+        $provider = new HttpProvider($this->testHost);
+        $provider->send('cfx_clientVersion1', []);
     }
 }
