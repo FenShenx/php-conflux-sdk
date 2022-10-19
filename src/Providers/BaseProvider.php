@@ -29,7 +29,7 @@ abstract class BaseProvider implements IProvider
      */
     abstract protected function request($data);
 
-    private function getJsonRpcVersion(): string
+    public function getJsonRpcVersion(): string
     {
         return $this->version;
     }
