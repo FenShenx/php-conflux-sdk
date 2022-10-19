@@ -12,6 +12,8 @@ abstract class BaseProvider implements IProvider
 
     protected LoggerInterface $logger;
 
+    private $version = "2.0";
+
     public function __construct(string $url, int $timeout = 30 * 1000, LoggerInterface $logger = null)
     {
         $this->url = $url;
@@ -21,7 +23,10 @@ abstract class BaseProvider implements IProvider
 
     abstract protected function request($data);
 
-    abstract protected function getJsonRpcVersion(): string;
+    private function getJsonRpcVersion(): string
+    {
+        return $this->version;
+    }
 
     public function send($method, $params)
     {

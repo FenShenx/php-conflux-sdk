@@ -8,9 +8,4 @@ class HttpProvider extends BaseProvider
     {
         // TODO: Implement request() method.
     }
-
-    protected function getJsonRpcVersion(): string
-    {
-        // TODO: Implement getJsonRpcVersion() method.
-    }
 }
