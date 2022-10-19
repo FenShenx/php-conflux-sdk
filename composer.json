@@ -15,5 +15,10 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "kornrunner/keccak": "dev-main"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10.0.x-dev"
+    }
 }
