@@ -1,0 +1,19 @@
+{
+    "name": "fenshenx/php-conflux-sdk",
+    "description": "Conflux web3 interface",
+    "type": "library",
+    "license": "Apache 2",
+    "autoload": {
+        "psr-4": {
+            "Fenshenx\\PhpConfluxSdk\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "分神",
+            "email": "qiao@qnt0.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
