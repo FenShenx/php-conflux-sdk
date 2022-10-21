@@ -8,5 +8,5 @@ class TestCase extends BaseTestCase
 {
     protected $testHost = "https://test.confluxrpc.com";
 
-    protected $chainId = 1;
+    protected $networkId = 1;
 }

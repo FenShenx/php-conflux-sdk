@@ -6,6 +6,9 @@ use Fenshenx\PhpConfluxSdk\Methods\Exceptions\UnknownMethodException;
 use Fenshenx\PhpConfluxSdk\Methods\IMethod;
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
 
+/**
+ * @method getClientVersion()
+ */
 class Cfx
 {
     private array $methods = [];
@@ -19,7 +22,7 @@ class Cfx
 
     public function __call(string $name, array $arguments)
     {
-        $method = "\Fenshenx\PhpConfluxSdk\Methods\\".$name;
+        $method = "\Fenshenx\PhpConfluxSdk\Methods\\".ucfirst($name);
 
         if (array_key_exists($method, $this->methods)) {
             $methodObj = $this->methods[$method];
