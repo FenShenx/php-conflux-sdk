@@ -8,8 +8,8 @@ use Fenshenx\PhpConfluxSdk\Providers\IProvider;
 use phpseclib3\Math\BigInteger;
 
 /**
- * @method string getClientVersion()
- * @method BigInteger getGasPrice()
+ * @method string clientVersion()
+ * @method BigInteger gasPrice()
  */
 class Cfx
 {

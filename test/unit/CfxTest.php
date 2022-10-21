@@ -12,7 +12,7 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        $res = $cfx->getClientVersion();
+        $res = $cfx->clientVersion();
 
         $this->assertIsString($res);
     }
@@ -24,7 +24,7 @@ class CfxTest extends TestCase
         /**
          * @var BigInteger
          */
-        $res = $cfx->getGasPrice();
+        $res = $cfx->gasPrice();
 
         $this->assertInstanceOf(BigInteger::class, $res);
     }
