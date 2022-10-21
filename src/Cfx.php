@@ -5,10 +5,11 @@ namespace Fenshenx\PhpConfluxSdk;
 use Fenshenx\PhpConfluxSdk\Methods\Exceptions\UnknownMethodException;
 use Fenshenx\PhpConfluxSdk\Methods\IMethod;
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
+use phpseclib3\Math\BigInteger;
 
 /**
  * @method string getClientVersion()
- * @method getGasPrice()
+ * @method BigInteger getGasPrice()
  */
 class Cfx
 {
