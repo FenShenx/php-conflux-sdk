@@ -7,7 +7,8 @@ use Fenshenx\PhpConfluxSdk\Methods\IMethod;
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
 
 /**
- * @method getClientVersion()
+ * @method string getClientVersion()
+ * @method getGasPrice()
  */
 class Cfx
 {

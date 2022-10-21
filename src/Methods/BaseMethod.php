@@ -9,14 +9,8 @@ abstract class BaseMethod implements IMethod
 {
     protected IProvider $provider;
 
-    /**
-     * @var IFormatter[]
-     */
     protected array $requestFormatters = [];
 
-    /**
-     * @var IFormatter[]
-     */
     protected array $responseFormatters = [];
 
     protected string $methodName;
