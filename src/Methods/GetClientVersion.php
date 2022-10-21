@@ -2,22 +2,21 @@
 
 namespace Fenshenx\PhpConfluxSdk\Methods;
 
-class GetClientVersion implements IMethod
+use Fenshenx\PhpConfluxSdk\Providers\IProvider;
+
+class GetClientVersion extends BaseMethod
 {
-    private string $methodName = "cfx_clientVersion";
+    protected string $methodName = "cfx_clientVersion";
 
-    public function setParams($params)
-    {
+    public function setParams($params) {}
 
-    }
-
-    public function getMethodName(): string
-    {
-        return $this->methodName;
-    }
-
-    public function getMethodPayload(): array
+    protected function getPayload()
     {
         return [];
+    }
+
+    protected function formatResponse($response)
+    {
+        return $response;
     }
 }

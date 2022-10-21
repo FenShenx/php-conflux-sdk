@@ -14,9 +14,6 @@ class CfxTest extends TestCase
 
         $res = $cfx->getClientVersion();
 
-        $this->assertArrayHasKey('jsonrpc', $res);
-        $this->assertArrayHasKey('id', $res);
-        $this->assertArrayHasKey('result', $res);
-        $this->assertIsString($res['result']);
+        $this->assertIsString($res);
     }
 }

@@ -34,7 +34,7 @@ class Cfx
             /**
              * @var IMethod
              */
-            $methodObj = new $method();
+            $methodObj = new $method($this->conflux->getProvider());
 
             if (!($methodObj instanceof IMethod))
                 throw new UnknownMethodException("Method ".$method." not instance of ".IMethod::class);
@@ -44,6 +44,6 @@ class Cfx
         }
 
         //send request
-        return $this->conflux->getProvider()->send($methodObj->getMethodName(), $methodObj->getMethodPayload());
+        return $methodObj->send();
     }
 }
