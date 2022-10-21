@@ -9,10 +9,6 @@ class GetGasPrice extends BaseMethod
 {
     protected string $methodName = "cfx_gasPrice";
 
-    protected array $responseFormatters = [
-        BigNumberFormatter::class
-    ];
-
     protected function getPayload()
     {
         return [];
@@ -23,7 +19,7 @@ class GetGasPrice extends BaseMethod
         /**
          * @var IFormatter
          */
-        $formatter = new $this->responseFormatters[0]();
+        $formatter = new BigNumberFormatter();
 
         return $formatter->format($response);
     }
