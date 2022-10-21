@@ -10,6 +10,7 @@ use phpseclib3\Math\BigInteger;
 /**
  * @method string clientVersion()
  * @method BigInteger gasPrice()
+ * @method BigInteger epochNumber($tag)
  */
 class Cfx
 {

@@ -4,11 +4,11 @@ namespace Fenshenx\PhpConfluxSdk\Formatters;
 
 use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 
-class BigNumberFormatter implements IFormatter
+class HexFormatter implements IFormatter
 {
 
     public static function format($value)
     {
-        return FormatUtil::toBigNumber($value);
+        return FormatUtil::numberToHex($value);
     }
 }

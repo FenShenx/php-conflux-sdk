@@ -16,12 +16,7 @@ class GasPrice extends BaseMethod
 
     protected function formatResponse($response)
     {
-        /**
-         * @var IFormatter
-         */
-        $formatter = new BigNumberFormatter();
-
-        return $formatter->format($response);
+        return BigNumberFormatter::format($response);
     }
 
     protected function validate($params)
