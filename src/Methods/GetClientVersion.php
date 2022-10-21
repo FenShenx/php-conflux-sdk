@@ -13,11 +13,6 @@ class GetClientVersion extends BaseMethod
         return [];
     }
 
-    protected function formatResponse($response)
-    {
-        return $response;
-    }
-
     protected function validate($params)
     {
 

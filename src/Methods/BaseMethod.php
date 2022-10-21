@@ -9,10 +9,6 @@ abstract class BaseMethod implements IMethod
 {
     protected IProvider $provider;
 
-    protected array $requestFormatters = [];
-
-    protected array $responseFormatters = [];
-
     protected string $methodName;
 
     protected array $params;
@@ -32,19 +28,16 @@ abstract class BaseMethod implements IMethod
 
     abstract protected function getPayload();
 
-    abstract protected function formatResponse($response);
-
     abstract protected function validate($params);
 
     protected function formatRequest($payload)
     {
-        foreach ($payload as $k => $v) {
-
-            if (key_exists($k, $this->requestFormatters))
-                $payload[$k] = $this->requestFormatters[$k]->format($v);
-        }
-
         return $payload;
+    }
+
+    protected function formatResponse($response)
+    {
+        return $response;
     }
 
     public function send()
