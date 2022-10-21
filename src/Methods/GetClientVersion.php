@@ -8,8 +8,6 @@ class GetClientVersion extends BaseMethod
 {
     protected string $methodName = "cfx_clientVersion";
 
-    public function setParams($params) {}
-
     protected function getPayload()
     {
         return [];
@@ -18,5 +16,10 @@ class GetClientVersion extends BaseMethod
     protected function formatResponse($response)
     {
         return $response;
+    }
+
+    protected function validate($params)
+    {
+
     }
 }

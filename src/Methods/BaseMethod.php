@@ -21,6 +21,8 @@ abstract class BaseMethod implements IMethod
 
     protected string $methodName;
 
+    protected array $params;
+
     public function __construct(IProvider $provider)
     {
         $this->provider = $provider;
@@ -37,6 +39,8 @@ abstract class BaseMethod implements IMethod
     abstract protected function getPayload();
 
     abstract protected function formatResponse($response);
+
+    abstract protected function validate($params);
 
     protected function formatRequest($payload)
     {
@@ -56,5 +60,12 @@ abstract class BaseMethod implements IMethod
         $res = $this->provider->send($this->getMethodName(), $payload);
 
         return $this->formatResponse($res['result']);
+    }
+
+    public function setParams($params)
+    {
+        $this->validate($params);
+
+        $this->params = $params;
     }
 }
