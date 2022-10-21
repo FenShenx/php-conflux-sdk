@@ -2,13 +2,13 @@
 
 namespace Fenshenx\PhpConfluxSdk\Formatters;
 
-use phpseclib3\Math\BigInteger;
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 
 class BigNumberFormatter implements IFormatter
 {
 
     public function format($value)
     {
-        return new BigInteger((string)$value, 16);
+        return FormatUtil::toBigNumber($value);
     }
 }
