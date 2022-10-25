@@ -14,8 +14,6 @@ use phpseclib3\Math\BigInteger;
  */
 class Cfx
 {
-    private array $methods = [];
-
     public function __construct(
         private Conflux $conflux
     )
@@ -27,24 +25,18 @@ class Cfx
     {
         $method = "\Fenshenx\PhpConfluxSdk\Methods\\".ucfirst($name);
 
-        if (array_key_exists($method, $this->methods)) {
-            $methodObj = $this->methods[$method];
-        } else {
+        if (!class_exists($method))
+            throw new UnknownMethodException("Unknown method ".$method);
 
-            if (!class_exists($method))
-                throw new UnknownMethodException("Unknown method ".$method);
+        /**
+         * @var IMethod
+         */
+        $methodObj = new $method($this->conflux->getProvider());
 
-            /**
-             * @var IMethod
-             */
-            $methodObj = new $method($this->conflux->getProvider());
+        if (!($methodObj instanceof IMethod))
+            throw new UnknownMethodException("Method ".$method." not instance of ".IMethod::class);
 
-            if (!($methodObj instanceof IMethod))
-                throw new UnknownMethodException("Method ".$method." not instance of ".IMethod::class);
-
-            $methodObj->setParams($arguments);
-            $this->methods[$method] = $methodObj;
-        }
+        $methodObj->setParams($arguments);
 
         //send request
         return $methodObj->send();
