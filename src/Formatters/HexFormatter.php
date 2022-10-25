@@ -9,6 +9,6 @@ class HexFormatter implements IFormatter
 
     public static function format($value)
     {
-        return FormatUtil::numberToHex($value);
+        return FormatUtil::numberToHex($value, true);
     }
 }

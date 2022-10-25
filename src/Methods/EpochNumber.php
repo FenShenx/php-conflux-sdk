@@ -16,7 +16,7 @@ class EpochNumber extends BaseMethod
 
     protected function getPayload()
     {
-        return [$this->params];
+        return $this->params;
     }
 
     protected function formatRequest($payload)
