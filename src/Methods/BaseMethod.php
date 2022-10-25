@@ -13,6 +13,16 @@ abstract class BaseMethod implements IMethod
 
     protected array $params;
 
+    /**
+     * @var IFormatter[]
+     */
+    protected array $requestFormatters = [];
+
+    /**
+     * @var IFormatter[]
+     */
+    protected array $responseFormatters = [];
+
     public function __construct(IProvider $provider)
     {
         $this->provider = $provider;
@@ -32,12 +42,37 @@ abstract class BaseMethod implements IMethod
 
     protected function formatRequest($payload)
     {
+        if (!empty($this->requestFormatters))
+            $payload = $this->format($payload, $this->requestFormatters);
+
         return $payload;
     }
 
     protected function formatResponse($response)
     {
+        if (!empty($this->responseFormatters)) {
+            if (is_array($response))
+                $response = $this->format($response, $this->responseFormatters);
+            else
+                $response = $this->format([$response], $this->responseFormatters)[0];
+        }
+
         return $response;
+    }
+
+    /**
+     * @param $data
+     * @param IFormatter[] $rules
+     * @return mixed
+     */
+    private function format($data, $rules)
+    {
+        foreach ($data as $k => $v) {
+            if (array_key_exists($k, $rules))
+                $data[$k] = $rules[$k]::format($v);
+        }
+
+        return $data;
     }
 
     public function send()
