@@ -11,7 +11,7 @@ use phpseclib3\Math\BigInteger;
 /**
  * @method string clientVersion()
  * @method Drip gasPrice()
- * @method BigInteger epochNumber($tag)
+ * @method BigInteger epochNumber(EpochNumber $tag)
  * @method Drip getBalance($address, EpochNumber|null $epochNumber = null)
  */
 class Cfx
