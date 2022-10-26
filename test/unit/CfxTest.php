@@ -22,12 +22,9 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        /**
-         * @var BigInteger
-         */
         $res = $cfx->gasPrice();
 
-        $this->assertInstanceOf(BigInteger::class, $res);
+        $this->assertInstanceOf(Drip::class, $res);
     }
 
     public function testEpochNumber()
