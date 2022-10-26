@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk\Utils;
 
+use Fenshenx\PhpConfluxSdk\Enums\EpochNumber;
 use phpseclib3\Math\BigInteger;
 
 class FormatUtil
@@ -57,8 +58,12 @@ class FormatUtil
 
     public static function getEpochNumber()
     {
-        return [
-            'earliest', 'latest_checkpoint', 'latest_finalized', 'latest_confirmed', 'latest_state', 'latest_mined'
-        ];
+        return array_column(EpochNumber::cases(), "value");
+    }
+
+    public static function validateEpochNumber($epochNumber)
+    {
+        if (!in_array($epochNumber, self::getEpochNumber()))
+            throw new \Exception("Undefined epoch number ".$epochNumber);
     }
 }
