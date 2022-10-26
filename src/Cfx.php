@@ -24,6 +24,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getStorageRoot($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  * @method array getBlockByHash($blockHash, boolean $includeTxs)
  * @method array getBlockByHashWithPivotAssumption($blockHash, $pivotHash, $epochNumber)
+ * @method array getBlockByEpochNumber(EpochNumber|String|int $epochNumber, boolean $includeTxs)
  */
 class Cfx
 {

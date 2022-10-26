@@ -176,6 +176,18 @@ class CfxTest extends TestCase
         $this->assertSame($blockHash, $res["hash"]);
     }
 
+    public function testGetBlockByEpochNumber()
+    {
+        $cfx = $this->getCfx();
+        $epochNumber = "97140287";
+        $res1 = $cfx->getBlockByEpochNumber($epochNumber, false);
+
+        $this->assertSame(FormatUtil::numberToHex($epochNumber, true), $res1["epochNumber"]);
+
+        $res2 = $cfx->getBlockByEpochNumber(EpochNumber::LatestMined, false);
+        $this->assertIsString($res2["epochNumber"]);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
