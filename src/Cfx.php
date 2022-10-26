@@ -25,6 +25,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getBlockByHash($blockHash, boolean $includeTxs)
  * @method array getBlockByHashWithPivotAssumption($blockHash, $pivotHash, $epochNumber)
  * @method array getBlockByEpochNumber(EpochNumber|String|int $epochNumber, boolean $includeTxs)
+ * @method array getBlockByBlockNumber($blockNumber, boolean $includeTxs)
  */
 class Cfx
 {

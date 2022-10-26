@@ -188,6 +188,15 @@ class CfxTest extends TestCase
         $this->assertIsString($res2["epochNumber"]);
     }
 
+    public function testGetBlockByBlockNumber()
+    {
+        $cfx = $this->getCfx();
+        $blockNumber = "97140287";
+        $res = $cfx->getBlockByBlockNumber($blockNumber, false);
+
+        $this->assertSame(FormatUtil::numberToHex($blockNumber, true), $res["blockNumber"]);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
