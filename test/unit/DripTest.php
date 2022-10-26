@@ -37,5 +37,9 @@ class DripTest extends TestCase
         $amount3 = new BigInteger("100000000000000000000");
         $drip3 = new Drip($amount3);
         $this->assertSame($drip3->getDrip(), $amount3->toString());
+
+        $amount4 = new BigInteger("0x1158e45ff8e9ed6e1", 16);
+        $drip4 = new Drip($amount4);
+        $this->assertSame("19.999999959110702817", $drip4->toCFX());
     }
 }

@@ -44,14 +44,24 @@ class Drip
     {
         self::initCfxE();
 
-        return $this->drip->divide(self::$cfxE)[0]->toString();
+        return $this->drive($this->drip, self::$cfxE);
     }
 
     public function toGdrip()
     {
         self::initGdripE();
 
-        return $this->drip->divide(self::$gdripE)[0]->toString();
+        return $this->drive($this->drip, self::$gdripE);
+    }
+
+    private function drive(BigInteger $a, BigInteger $b)
+    {
+        $c = $a->divide($b);
+
+        if ($c[1]->toString() == '0')
+            return $c[0]->toString();
+
+        return $c[0]->toString().'.'.$c[1]->toString();
     }
 
     public function getDrip()
