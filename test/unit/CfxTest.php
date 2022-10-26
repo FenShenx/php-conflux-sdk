@@ -55,6 +55,17 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(Drip::class, $drip2);
     }
 
+    public function testGetAdmin()
+    {
+        $cfx = $this->getCfx();
+        $contractAddress = "cfxtest:acgdtuumgpwxpdmptxmmjdmcn64cbdx1yugj81phc4";
+        $adminAddress = "cfxtest:aatz19y0y2r1db8hnryn2jh2msxb3zpjtpbxwwjp86";
+
+        $res = $cfx->getAdmin($contractAddress);
+
+        $this->assertSame($res, $adminAddress);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
