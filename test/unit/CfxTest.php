@@ -122,6 +122,16 @@ class CfxTest extends TestCase
         $this->assertSame(true, FormatUtil::isZeroPrefixed($res));
     }
 
+    public function testGetStorageAt()
+    {
+        $cfx = $this->getCfx();
+
+        $address = "cfxtest:acgdtuumgpwxpdmptxmmjdmcn64cbdx1yugj81phc4";
+        $res = $cfx->getStorageAt($address, 256);
+
+        $this->assertIsString($res);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
