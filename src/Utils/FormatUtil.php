@@ -56,14 +56,14 @@ class FormatUtil
         return str_starts_with(strtolower($value), '0x');
     }
 
-    public static function getEpochNumber()
+    public static function getEpochNumbers()
     {
         return array_column(EpochNumber::cases(), "value");
     }
 
     public static function validateEpochNumber($epochNumber)
     {
-        if (!in_array($epochNumber, self::getEpochNumber()))
+        if (!in_array($epochNumber, self::getEpochNumbers()))
             throw new \Exception("Undefined epoch number ".$epochNumber);
     }
 }

@@ -21,7 +21,7 @@ class EpochNumber extends BaseMethod
 
     protected function formatRequest($payload)
     {
-        if (!in_array($payload[0], FormatUtil::getEpochNumber()))
+        if (!in_array($payload[0], FormatUtil::getEpochNumbers()))
             $payload = parent::formatRequest($payload);
 
         return $payload;
