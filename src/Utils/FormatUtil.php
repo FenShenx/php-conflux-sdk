@@ -11,7 +11,7 @@ class FormatUtil
 
     public static function toBigNumber($number)
     {
-        if (is_int($number))
+        if (is_numeric($number))
             return new BigInteger($number);
 
         if (is_string($number) && self::isZeroPrefixed($number))
