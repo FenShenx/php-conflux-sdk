@@ -23,6 +23,7 @@ use phpseclib3\Math\BigInteger;
  * @method string getStorageAt($contractAddress, $position, EpochNumber|String|int|null $epochNumber = null)
  * @method array getStorageRoot($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  * @method array getBlockByHash($blockHash, boolean $includeTxs)
+ * @method array getBlockByHashWithPivotAssumption($blockHash, $pivotHash, $epochNumber)
  */
 class Cfx
 {

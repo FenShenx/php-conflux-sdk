@@ -165,6 +165,17 @@ class CfxTest extends TestCase
         $this->assertSame($blockHash, $res["hash"]);
     }
 
+    public function testGetBlockByHashWithPivotAssumption()
+    {
+        $cfx = $this->getCfx();
+
+        $blockHash = "0xc20b1a3aac892442a1bfa30b236877ced8b3084e584d7344b84c12b338ba72ea";
+        $epochNumber = "97140287";
+        $res = $cfx->getBlockByHashWithPivotAssumption($blockHash, $blockHash, $epochNumber);
+
+        $this->assertSame($blockHash, $res["hash"]);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
