@@ -19,6 +19,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getDepositList($address, EpochNumber|String|int|null $epochNumber = null)
  * @method array getVoteList($address, EpochNumber|String|int|null $epochNumber = null)
  * @method Drip getCollateralForStorage($address, EpochNumber|String|int|null $epochNumber = null)
+ * @method string getCode($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  */
 class Cfx
 {

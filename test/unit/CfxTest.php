@@ -5,6 +5,7 @@ namespace Test\Unit;
 use Fenshenx\PhpConfluxSdk\Conflux;
 use Fenshenx\PhpConfluxSdk\Drip;
 use Fenshenx\PhpConfluxSdk\Enums\EpochNumber;
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 use phpseclib3\Math\BigInteger;
 use Test\TestCase;
 
@@ -108,8 +109,17 @@ class CfxTest extends TestCase
         $res = $cfx->getCollateralForStorage($address);
 
         $this->assertInstanceOf(Drip::class, $res);
+    }
 
-        var_dump($res->toCFX());
+    public function testGetCode()
+    {
+        $cfx = $this->getCfx();
+
+        $address = "cfxtest:acgdtuumgpwxpdmptxmmjdmcn64cbdx1yugj81phc4";
+        $res = $cfx->getCode($address);
+
+        $this->assertIsString($res);
+        $this->assertSame(true, FormatUtil::isZeroPrefixed($res));
     }
 
     private function getCfx()
