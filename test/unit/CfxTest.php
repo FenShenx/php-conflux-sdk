@@ -132,6 +132,29 @@ class CfxTest extends TestCase
         $this->assertIsString($res);
     }
 
+    public function testGetStorageRoot()
+    {
+        $cfx = $this->getCfx();
+
+        $address = "cfxtest:acgdtuumgpwxpdmptxmmjdmcn64cbdx1yugj81phc4";
+        $res = $cfx->getStorageRoot($address);
+
+        if (!is_null($res['delta'])) {
+            $this->assertIsString($res['delta']);
+            $this->assertSame(true, FormatUtil::isZeroPrefixed($res['delta']));
+        }
+
+        if (!is_null($res['intermediate'])) {
+            $this->assertIsString($res['intermediate']);
+            $this->assertSame(true, FormatUtil::isZeroPrefixed($res['intermediate']));
+        }
+
+        if (!is_null($res['snapshot'])) {
+            $this->assertIsString($res['snapshot']);
+            $this->assertSame(true, FormatUtil::isZeroPrefixed($res['snapshot']));
+        }
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);

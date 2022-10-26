@@ -21,6 +21,7 @@ use phpseclib3\Math\BigInteger;
  * @method Drip getCollateralForStorage($address, EpochNumber|String|int|null $epochNumber = null)
  * @method string getCode($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  * @method string getStorageAt($contractAddress, $position, EpochNumber|String|int|null $epochNumber = null)
+ * @method array getStorageRoot($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  */
 class Cfx
 {
