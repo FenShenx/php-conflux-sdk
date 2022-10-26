@@ -3,6 +3,7 @@
 namespace Test\Unit;
 
 use Fenshenx\PhpConfluxSdk\Conflux;
+use Fenshenx\PhpConfluxSdk\Drip;
 use phpseclib3\Math\BigInteger;
 use Test\TestCase;
 
@@ -46,6 +47,16 @@ class CfxTest extends TestCase
             $res = $cfx->epochNumber($tag);
             $this->assertInstanceOf(BigInteger::class, $res);
         }
+    }
+
+    public function testGetBalance()
+    {
+        $cfx = $this->getCfx();
+        $address = "cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t";
+
+        $drip = $cfx->getBalance($address);
+
+        $this->assertInstanceOf(Drip::class, $drip);
     }
 
     private function getCfx()
