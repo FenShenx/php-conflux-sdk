@@ -8,9 +8,9 @@ class Drip
 {
     private BigInteger $drip;
 
-    private BigInteger $cfxE;
+    private static BigInteger $cfxE;
 
-    private BigInteger $gdripE;
+    private static BigInteger $gdripE;
 
     public function __construct(
         int|string|BigInteger $drip
@@ -20,48 +20,36 @@ class Drip
             $this->drip = clone $drip;
         else
             $this->drip = new BigInteger($drip);
-
-        $this->cfxE = new BigInteger("1000000000000000000");
-        $this->gdripE = new BigInteger("1000000000");
     }
 
-    public static function __callStatic($name, $arguments)
+    public static function fromCFX($cfx)
     {
-        $methods = [
-            'fromCFX', 'fromGdrip'
-        ];
+        if (empty(self::$cfxE))
+            self::$cfxE = new BigInteger("1000000000000000000");
 
-        if (!in_array($name, $methods))
-            throw new \Exception("Undefined method ".$name);
-
-        $drip = new static(0);
-        $drip->$name(...$arguments);
-
-        return $drip;
-    }
-
-    public function fromCFX($cfx)
-    {
         $cfx = new BigInteger($cfx);
 
-        return new static($cfx->multiply($this->cfxE));
+        return new static($cfx->multiply(self::$cfxE));
     }
 
-    public function fromGdrip($gdrip)
+    public static function fromGdrip($gdrip)
     {
+        if (empty(self::$gdripE))
+            self::$gdripE = new BigInteger("1000000000");
+
         $gdrip = new BigInteger($gdrip);
 
-        return new static($gdrip->multiply($this->gdripE));
+        return new static($gdrip->multiply(self::$gdripE));
     }
 
     public function toCFX()
     {
-        return $this->drip->divide($this->cfxE);
+        return $this->drip->divide(self::$cfxE)[0]->toString();
     }
 
     public function toGdrip()
     {
-        return $this->drip->divide($this->gdripE);
+        return $this->drip->divide(self::$gdripE)[0]->toString();
     }
 
     public function getDrip()
