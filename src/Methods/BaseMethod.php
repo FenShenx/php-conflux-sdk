@@ -54,10 +54,22 @@ abstract class BaseMethod implements IMethod
     protected function formatResponse($response)
     {
         if (!empty($this->responseFormatters)) {
-            if (is_array($response))
-                $response = $this->format($response, $this->responseFormatters);
-            else
+            if (is_array($response)) {
+
+                if (empty($response)) {
+                    //Do nothing
+                } elseif (array_keys($response) !== range(0, count($response)-1)) {
+                    $response = $this->format($response, $this->responseFormatters);
+                } else {
+
+                    foreach ($response as $k => $item) {
+                        $response[$k] = $this->format($item, $this->responseFormatters);
+                    }
+                }
+
+            } else {
                 $response = $this->format([$response], $this->responseFormatters)[0];
+            }
         }
 
         return $response;

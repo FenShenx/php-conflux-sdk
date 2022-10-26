@@ -90,6 +90,11 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(Drip::class, $res);
     }
 
+    public function testGetDepositList()
+    {
+        //TODO:
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);

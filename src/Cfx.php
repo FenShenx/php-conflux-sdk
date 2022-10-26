@@ -16,6 +16,7 @@ use phpseclib3\Math\BigInteger;
  * @method String getAdmin($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  * @method array getSponsorInfo($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  * @method Drip getStakingBalance($address, EpochNumber|String|int|null $epochNumber = null)
+ * @method array getDepositList($address, EpochNumber|String|int|null $epochNumber = null)
  */
 class Cfx
 {
