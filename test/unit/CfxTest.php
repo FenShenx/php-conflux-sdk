@@ -197,6 +197,15 @@ class CfxTest extends TestCase
         $this->assertSame(FormatUtil::numberToHex($blockNumber, true), $res["blockNumber"]);
     }
 
+    public function testGetBestBlockHash()
+    {
+        $cfx = $this->getCfx();
+        $res = $cfx->getBestBlockHash();
+
+        $this->assertIsString($res);
+        $this->assertTrue(FormatUtil::isZeroPrefixed($res));
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
