@@ -155,6 +155,16 @@ class CfxTest extends TestCase
         }
     }
 
+    public function testGetBlockByHash()
+    {
+        $cfx = $this->getCfx();
+
+        $blockHash = "0xc20b1a3aac892442a1bfa30b236877ced8b3084e584d7344b84c12b338ba72ea";
+        $res = $cfx->getBlockByHash($blockHash, false);
+
+        $this->assertSame($blockHash, $res["hash"]);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);

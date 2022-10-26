@@ -22,6 +22,7 @@ use phpseclib3\Math\BigInteger;
  * @method string getCode($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  * @method string getStorageAt($contractAddress, $position, EpochNumber|String|int|null $epochNumber = null)
  * @method array getStorageRoot($contractAddress, EpochNumber|String|int|null $epochNumber = null)
+ * @method array getBlockByHash($blockHash, boolean $includeTxs)
  */
 class Cfx
 {
