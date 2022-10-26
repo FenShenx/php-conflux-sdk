@@ -18,6 +18,7 @@ use phpseclib3\Math\BigInteger;
  * @method Drip getStakingBalance($address, EpochNumber|String|int|null $epochNumber = null)
  * @method array getDepositList($address, EpochNumber|String|int|null $epochNumber = null)
  * @method array getVoteList($address, EpochNumber|String|int|null $epochNumber = null)
+ * @method Drip getCollateralForStorage($address, EpochNumber|String|int|null $epochNumber = null)
  */
 class Cfx
 {

@@ -100,6 +100,18 @@ class CfxTest extends TestCase
         //TODO:
     }
 
+    public function testGetCollateralForStorage()
+    {
+        $cfx = $this->getCfx();
+
+        $address = "cfxtest:acgdtuumgpwxpdmptxmmjdmcn64cbdx1yugj81phc4";
+        $res = $cfx->getCollateralForStorage($address);
+
+        $this->assertInstanceOf(Drip::class, $res);
+
+        var_dump($res->toCFX());
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
