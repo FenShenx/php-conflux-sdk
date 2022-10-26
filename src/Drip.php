@@ -24,8 +24,7 @@ class Drip
 
     public static function fromCFX($cfx)
     {
-        if (empty(self::$cfxE))
-            self::$cfxE = new BigInteger("1000000000000000000");
+        self::initCfxE();
 
         $cfx = new BigInteger($cfx);
 
@@ -34,8 +33,7 @@ class Drip
 
     public static function fromGdrip($gdrip)
     {
-        if (empty(self::$gdripE))
-            self::$gdripE = new BigInteger("1000000000");
+        self::initGdripE();
 
         $gdrip = new BigInteger($gdrip);
 
@@ -44,11 +42,15 @@ class Drip
 
     public function toCFX()
     {
+        self::initCfxE();
+
         return $this->drip->divide(self::$cfxE)[0]->toString();
     }
 
     public function toGdrip()
     {
+        self::initGdripE();
+
         return $this->drip->divide(self::$gdripE)[0]->toString();
     }
 
@@ -60,5 +62,17 @@ class Drip
     public function __toString(): string
     {
         return $this->getDrip();
+    }
+
+    private static function initCfxE()
+    {
+        if (empty(self::$cfxE))
+            self::$cfxE = new BigInteger("1000000000000000000");
+    }
+
+    private static function initGdripE()
+    {
+        if (empty(self::$gdripE))
+            self::$gdripE = new BigInteger("1000000000");
     }
 }
