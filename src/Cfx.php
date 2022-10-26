@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk;
 
+use Fenshenx\PhpConfluxSdk\Enums\EpochNumber;
 use Fenshenx\PhpConfluxSdk\Methods\Exceptions\UnknownMethodException;
 use Fenshenx\PhpConfluxSdk\Methods\IMethod;
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
@@ -11,7 +12,7 @@ use phpseclib3\Math\BigInteger;
  * @method string clientVersion()
  * @method Drip gasPrice()
  * @method BigInteger epochNumber($tag)
- * @method Drip getBalance($address)
+ * @method Drip getBalance($address, EpochNumber|null $epochNumber = null)
  */
 class Cfx
 {

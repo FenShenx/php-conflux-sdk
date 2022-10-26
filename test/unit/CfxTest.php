@@ -4,6 +4,7 @@ namespace Test\Unit;
 
 use Fenshenx\PhpConfluxSdk\Conflux;
 use Fenshenx\PhpConfluxSdk\Drip;
+use Fenshenx\PhpConfluxSdk\Enums\EpochNumber;
 use phpseclib3\Math\BigInteger;
 use Test\TestCase;
 
@@ -52,8 +53,10 @@ class CfxTest extends TestCase
         $address = "cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t";
 
         $drip = $cfx->getBalance($address);
-
         $this->assertInstanceOf(Drip::class, $drip);
+
+        $drip2 = $cfx->getBalance($address, EpochNumber::LatestConfirmed);
+        $this->assertInstanceOf(Drip::class, $drip2);
     }
 
     private function getCfx()
