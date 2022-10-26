@@ -13,11 +13,6 @@ class GasPrice extends BaseMethod
         BigNumberFormatter::class
     ];
 
-    protected function getPayload()
-    {
-        return [];
-    }
-
     protected function validate($params)
     {
 

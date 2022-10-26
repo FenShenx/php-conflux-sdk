@@ -11,7 +11,7 @@ abstract class BaseMethod implements IMethod
 
     protected string $methodName;
 
-    protected array $params;
+    protected array $params = [];
 
     /**
      * @var IFormatter[]
@@ -36,7 +36,10 @@ abstract class BaseMethod implements IMethod
         return $this->methodName;
     }
 
-    abstract protected function getPayload();
+    protected function getPayload()
+    {
+        return $this->params;
+    }
 
     abstract protected function validate($params);
 

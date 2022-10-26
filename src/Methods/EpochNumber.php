@@ -22,11 +22,6 @@ class EpochNumber extends BaseMethod
         'earliest', 'latest_checkpoint', 'latest_finalized', 'latest_confirmed', 'latest_state', 'latest_mined'
     ];
 
-    protected function getPayload()
-    {
-        return $this->params;
-    }
-
     protected function formatRequest($payload)
     {
         if (!in_array($payload[0], $this->paramsTags))
