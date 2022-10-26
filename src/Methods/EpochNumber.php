@@ -22,7 +22,6 @@ class EpochNumber extends BaseMethod
 
     protected function validate($params)
     {
-        if (empty($params))
-            throw new InvalidParamException("params can not be empty");
+
     }
 }

@@ -19,6 +19,6 @@ class GetStakingBalance extends BaseMethod
 
     protected function validate($params)
     {
-        // TODO: Implement validate() method.
+
     }
 }
