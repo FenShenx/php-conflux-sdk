@@ -66,6 +66,20 @@ class CfxTest extends TestCase
         $this->assertSame($res, $adminAddress);
     }
 
+    public function testGetSponsorInfo()
+    {
+        $cfx = $this->getCfx();
+        $contractAddress = "cfxtest:acgdtuumgpwxpdmptxmmjdmcn64cbdx1yugj81phc4";
+
+        $res = $cfx->getSponsorInfo($contractAddress);
+
+        $this->assertIsString($res['sponsorForGas']);
+        $this->assertIsString($res['sponsorForCollateral']);
+        $this->assertInstanceOf(Drip::class, $res['sponsorGasBound']);
+        $this->assertInstanceOf(Drip::class, $res['sponsorBalanceForGas']);
+        $this->assertInstanceOf(Drip::class, $res['sponsorBalanceForCollateral']);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
