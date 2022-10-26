@@ -6,6 +6,8 @@ use phpseclib3\Math\BigInteger;
 
 class FormatUtil
 {
+    private function __construct() {}
+
     public static function toBigNumber($number)
     {
         if (is_int($number))
@@ -51,5 +53,12 @@ class FormatUtil
     public static function isZeroPrefixed($value)
     {
         return str_starts_with(strtolower($value), '0x');
+    }
+
+    public static function getEpochNumber()
+    {
+        return [
+            'earliest', 'latest_checkpoint', 'latest_finalized', 'latest_confirmed', 'latest_state', 'latest_mined'
+        ];
     }
 }

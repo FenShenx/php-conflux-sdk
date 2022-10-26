@@ -5,6 +5,7 @@ namespace Fenshenx\PhpConfluxSdk\Methods;
 use Fenshenx\PhpConfluxSdk\Formatters\BigNumberFormatter;
 use Fenshenx\PhpConfluxSdk\Formatters\HexFormatter;
 use Fenshenx\PhpConfluxSdk\Methods\Exceptions\InvalidParamException;
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 
 class EpochNumber extends BaseMethod
 {
@@ -18,13 +19,9 @@ class EpochNumber extends BaseMethod
         BigNumberFormatter::class
     ];
 
-    private $paramsTags = [
-        'earliest', 'latest_checkpoint', 'latest_finalized', 'latest_confirmed', 'latest_state', 'latest_mined'
-    ];
-
     protected function formatRequest($payload)
     {
-        if (!in_array($payload[0], $this->paramsTags))
+        if (!in_array($payload[0], FormatUtil::getEpochNumber()))
             $payload = parent::formatRequest($payload);
 
         return $payload;
