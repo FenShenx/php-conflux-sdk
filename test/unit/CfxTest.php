@@ -95,6 +95,11 @@ class CfxTest extends TestCase
         //TODO:
     }
 
+    public function testGetVoteList()
+    {
+        //TODO:
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
