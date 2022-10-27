@@ -216,6 +216,19 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(BigInteger::class, $res);
     }
 
+    public function testGetStatus()
+    {
+        $cfx = $this->getCfx();
+
+        $res = $cfx->getStatus();
+
+        $this->assertIsString($res['bestHash']);
+        $this->assertIsString($res['chainId']);
+        $this->assertIsString($res['networkId']);
+        $this->assertIsString($res['epochNumber']);
+        $this->assertIsString($res['blockNumber']);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);

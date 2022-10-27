@@ -28,6 +28,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getBlockByBlockNumber($blockNumber, boolean $includeTxs)
  * @method string getBestBlockHash()
  * @method BigInteger getNextNonce($address, EpochNumber|String|int|null $epochNumber = null)
+ * @method array getStatus()
  */
 class Cfx
 {
