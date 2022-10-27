@@ -206,6 +206,16 @@ class CfxTest extends TestCase
         $this->assertTrue(FormatUtil::isZeroPrefixed($res));
     }
 
+    public function testGetNextNonce()
+    {
+        $cfx = $this->getCfx();
+
+        $address = "cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t";
+        $res = $cfx->getNextNonce($address);
+
+        $this->assertInstanceOf(BigInteger::class, $res);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
