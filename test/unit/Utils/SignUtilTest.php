@@ -20,7 +20,5 @@ class SignUtilTest extends TestCase
         $privateKey = SignUtil::getRandomPrivateKey();
 
         $this->assertIsString($privateKey);
-
-        var_dump($privateKey);
     }
 }
