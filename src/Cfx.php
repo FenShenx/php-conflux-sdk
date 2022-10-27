@@ -31,7 +31,7 @@ use phpseclib3\Math\BigInteger;
 class Cfx
 {
     public function __construct(
-        private Conflux $conflux
+        private readonly Conflux $conflux
     )
     {
 
