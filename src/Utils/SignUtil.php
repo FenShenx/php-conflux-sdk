@@ -36,7 +36,27 @@ class SignUtil
         $privateKey = self::$secp256k1->keyFromPrivate($privateKey, 'hex');
         $publicKey = $privateKey->getPublic(false, 'hex');
 
-        return '0x' . $publicKey;
+        return '0x' . substr($publicKey, 2);
+    }
+
+    public static function publicKey2Address($publicKey)
+    {
+        if (FormatUtil::isZeroPrefixed($publicKey))
+            $publicKey = substr($publicKey, 2);
+
+        $publicKeyBin = hex2bin($publicKey);
+
+        if (strlen($publicKeyBin) === 65)
+            $publicKeyBin = substr($publicKeyBin, 1);
+
+        if (strlen($publicKeyBin) !== 64)
+            throw new \Exception("Invalid public key");
+
+        $buffer = substr(hex2bin(Keccak::hash($publicKeyBin, 256)), -20);
+
+        $buffer[0] = hex2bin(dechex((hexdec(bin2hex($buffer[0])) & 0x0f) | 0x10));
+
+        return bin2hex($buffer);
     }
 
     private static function initSecp256k1()
