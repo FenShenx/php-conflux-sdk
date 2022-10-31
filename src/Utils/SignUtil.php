@@ -71,6 +71,11 @@ class SignUtil
         return EncodeUtil::encodeCfxAddress($address, $networkId);
     }
 
+    public static function privateKey2ConfluxAddress($privateKey, $networkId)
+    {
+        return self::publicKey2ConfluxAddress(self::privateKey2PublicKey($privateKey), $networkId);
+    }
+
     private static function initSecp256k1()
     {
         if (empty(self::$secp256k1))
