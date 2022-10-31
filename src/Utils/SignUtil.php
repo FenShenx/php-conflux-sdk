@@ -62,12 +62,13 @@ class SignUtil
     {
         $publicKey = FormatUtil::stripZero($publicKey);
 
-        $buffer = hex2bin($publicKey);
+        $address = self::publicKey2Address($publicKey);
+        $buffer = hex2bin($address);
 
         if (strlen($buffer) !== 20)
             throw new \Exception("not match hex40");
 
-        return EncodeUtil::encodeCfxAddress($publicKey, $networkId);
+        return EncodeUtil::encodeCfxAddress($address, $networkId);
     }
 
     private static function initSecp256k1()
