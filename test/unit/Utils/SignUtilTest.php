@@ -36,10 +36,19 @@ class SignUtilTest extends TestCase
     public function testPublicKey2Address()
     {
         $publicKey = "0xe25b322386732960241d8d5376e44abba6e7167af6b880e11c49681191c84156e1b5f3c12697aa5afc88f59c4251c507d14f6a88df6399e79fef179bcd78fba9";
-//        $address = "cfxtest:aapr2jm67p5myymb51g0caszkred0907eayz84w6v3";
         $address = "18dc215ceb36aa5141ddcd6101d54b483b7edd20";
 
         $res = SignUtil::publicKey2Address($publicKey);
+
+        $this->assertSame($address, $res);
+    }
+
+    public function testKey2ConfluxAddress()
+    {
+        $publicKey = "0x18dc215ceb36aa5141ddcd6101d54b483b7edd20";
+        $address = "cfxtest:aapr2jm67p5myymb51g0caszkred0907eayz84w6v3";
+
+        $res = SignUtil::publicKey2ConfluxAddress($publicKey, $this->networkId);
 
         $this->assertSame($address, $res);
     }

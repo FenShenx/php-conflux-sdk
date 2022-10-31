@@ -41,8 +41,7 @@ class SignUtil
 
     public static function publicKey2Address($publicKey)
     {
-        if (FormatUtil::isZeroPrefixed($publicKey))
-            $publicKey = substr($publicKey, 2);
+        $publicKey = FormatUtil::stripZero($publicKey);
 
         $publicKeyBin = hex2bin($publicKey);
 
@@ -57,6 +56,18 @@ class SignUtil
         $buffer[0] = hex2bin(dechex((hexdec(bin2hex($buffer[0])) & 0x0f) | 0x10));
 
         return bin2hex($buffer);
+    }
+
+    public static function publicKey2ConfluxAddress($publicKey, $networkId)
+    {
+        $publicKey = FormatUtil::stripZero($publicKey);
+
+        $buffer = hex2bin($publicKey);
+
+        if (strlen($buffer) !== 20)
+            throw new \Exception("not match hex40");
+
+        return EncodeUtil::encodeCfxAddress($publicKey, $networkId);
     }
 
     private static function initSecp256k1()
