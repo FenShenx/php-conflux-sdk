@@ -76,6 +76,14 @@ class SignUtil
         return self::publicKey2ConfluxAddress(self::privateKey2PublicKey($privateKey), $networkId);
     }
 
+    public static function confluxAddress2Address($confluxAddress)
+    {
+        if (!is_string($confluxAddress) || ($confluxAddress !== strtoupper($confluxAddress) && $confluxAddress != strtolower($confluxAddress)))
+            throw new \Exception("Mixed-case address ".$confluxAddress);
+
+        return EncodeUtil::decodeCfxAddress($confluxAddress, true)["hex_address"];
+    }
+
     private static function initSecp256k1()
     {
         if (empty(self::$secp256k1))

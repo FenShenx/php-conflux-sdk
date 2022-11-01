@@ -26,6 +26,8 @@ class EncodeUtil
 
     const NETID_TEST = 1;
 
+    const NET_ID_LIMIT = 0xFFFFFFFF;
+
     const VERSION_BYTE = 0;
 
     const ALPHABET = 'ABCDEFGHJKMNPRSTUVWXYZ0123456789';
@@ -67,6 +69,27 @@ class EncodeUtil
         }
     }
 
+    public static function decodeNetId($payload)
+    {
+        switch ($payload) {
+            case EncodeUtil::PREFIX_CFXTEST:
+                return EncodeUtil::NETID_TEST;
+            case EncodeUtil::PREFIX_CFX:
+                return EncodeUtil::NETID_MAIN;
+            default:
+                $prefix = substr($payload,0,3);
+                $netId = substr($payload, 3);
+
+                if ($prefix !== EncodeUtil::PREFIX_NET || !self::isValidNetId($netId))
+                    throw new \Exception("netId prefix should be passed by 'cfx', 'cfxtest' or 'net[n]' ");
+
+                if ((int)$netId === EncodeUtil::NETID_TEST || (int)$netId === EncodeUtil::NETID_MAIN)
+                    throw new \Exception("net1 or net1029 are invalid");
+
+                return (int)$netId;
+        }
+    }
+
     public static function encodeCfxAddress($hexAddress, $networkId, $verbose = false)
     {
         $hexAddress = FormatUtil::stripZero($hexAddress);
@@ -101,6 +124,62 @@ class EncodeUtil
         return $verbose
             ? strtoupper($netName.":TYPE.".$addressType.":".$payload.$checksum)
             : strtolower($netName.":".$payload.$checksum);
+    }
+
+    public static function decodeCfxAddress($address, $isPrefix=false)
+    {
+        preg_match('/^([^:]+):(.+:)?(.{34})(.{8})$/', strtoupper($address), $addressToUpperCase);
+
+        $netName = $addressToUpperCase[1];
+        $shouldHaveType = $addressToUpperCase[2];
+        $payload = $addressToUpperCase[3];
+        $checksum = $addressToUpperCase[4];
+
+        $prefix5Bits = array_map(function ($byte) {
+            $_byte = hexdec(bin2hex($byte)) & 31;
+            return $_byte;
+        }, str_split($netName));
+
+        $alphabetMap = array_flip(str_split(EncodeUtil::ALPHABET));
+
+        $payload5Bits = [];
+        foreach (str_split($payload) as $char) {
+            $payload5Bits[] = $alphabetMap[$char];
+        }
+
+        $checksum5Bits = [];
+        foreach (str_split($checksum) as $char) {
+            $checksum5Bits[] = $alphabetMap[$char];
+        }
+
+        $_convertBit = self::convertBit($payload5Bits, 5, 8, false);
+        $version = $_convertBit[0];
+        $addressType = array_slice($_convertBit, 1);
+
+        $hexAddress = implode(array_map(function ($i) {
+            $b = dechex($i);
+            if (strlen($b) % 2 == 1)
+                $b = '0'.$b;
+            return $b;
+        }, $addressType));
+        $netId = self::decodeNetId(strtolower($netName));
+        $type = self::getAddressType($hexAddress);
+
+        if (!empty($shouldHaveType) && ("type.".$type.":") !== strtolower($shouldHaveType))
+            throw new \Exception("'Type of address doesn't match");
+
+        $bigint = self::polyMod(array_merge(
+            $prefix5Bits, [0], $payload5Bits, $checksum5Bits
+        ));
+
+        if ((int)$bigint->toString())
+            throw new \Exception("Invalid checksum for $checksum");
+
+        return [
+            "hex_address" => $isPrefix ? '0x'.$hexAddress : $hexAddress,
+            "net_id" => $netId,
+            "type" => $type
+        ];
     }
 
     private static function convertBit($buffer, int $inBits, int $outBits, bool $pad) {
@@ -171,5 +250,10 @@ class EncodeUtil
     private static function uRightShift($v, $n)
     {
         return ($v & 0xFFFFFFFF) >> ($n & 0x1F);
+    }
+
+    private static function isValidNetId($netId)
+    {
+        return preg_match('/^([1-9]\d*)$/', $netId) && (int)$netId <= EncodeUtil::NET_ID_LIMIT;
     }
 }
