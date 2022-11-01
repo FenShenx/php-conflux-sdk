@@ -60,5 +60,8 @@ class SignUtilTest extends TestCase
 
         $res = SignUtil::privateKey2ConfluxAddress($privateKey, $this->networkId);
         $this->assertSame($address, $res);
+
+        $res2 = SignUtil::privateKey2ConfluxAddress($privateKey, 1029);
+        $this->assertSame("cfx:aapr2jm67p5myymb51g0caszkred0907ea88rmy0zx", $res2);
     }
 }
