@@ -37,7 +37,7 @@ class FormatUtil
             throw new \Exception('The value to toHex function is not support.');
         }
         if ($isPrefix) {
-            return '0x' . $hex;
+            return self::zeroPrefix($hex);
         }
         return $hex;
     }
@@ -54,6 +54,14 @@ class FormatUtil
     public static function isZeroPrefixed($value)
     {
         return str_starts_with(strtolower($value), '0x');
+    }
+
+    public static function zeroPrefix($value)
+    {
+        if (self::isZeroPrefixed($value))
+            return $value;
+
+        return '0x'.$value;
     }
 
     public static function getEpochNumbers()
