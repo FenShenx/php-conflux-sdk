@@ -176,7 +176,7 @@ class EncodeUtil
             throw new \Exception("Invalid checksum for $checksum");
 
         return [
-            "hex_address" => $isPrefix ? '0x'.$hexAddress : $hexAddress,
+            "hex_address" => $isPrefix ? FormatUtil::zeroPrefix($hexAddress) : $hexAddress,
             "net_id" => $netId,
             "type" => $type
         ];

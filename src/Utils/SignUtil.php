@@ -36,7 +36,7 @@ class SignUtil
         $privateKey = self::$secp256k1->keyFromPrivate($privateKey, 'hex');
         $publicKey = $privateKey->getPublic(false, 'hex');
 
-        return '0x' . substr($publicKey, 2);
+        return FormatUtil::zeroPrefix(substr($publicKey, 2));
     }
 
     public static function publicKey2Address($publicKey)
