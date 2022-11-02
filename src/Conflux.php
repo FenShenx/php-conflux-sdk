@@ -4,6 +4,7 @@ namespace Fenshenx\PhpConfluxSdk;
 
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
 use Fenshenx\PhpConfluxSdk\Providers\ProviderFactory;
+use Fenshenx\PhpConfluxSdk\Wallet\Wallet;
 use Psr\Log\LoggerInterface;
 
 class Conflux

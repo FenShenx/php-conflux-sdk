@@ -1,6 +1,6 @@
 <?php
 
-namespace Fenshenx\PhpConfluxSdk;
+namespace Fenshenx\PhpConfluxSdk\Wallet;
 
 class Wallet
 {
