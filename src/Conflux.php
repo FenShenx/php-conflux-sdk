@@ -12,6 +12,8 @@ class Conflux
 
     protected Cfx $cfx;
 
+    protected Wallet $wallet;
+
     public function __construct(
         private string $url,
         private int $networkId,
@@ -25,6 +27,7 @@ class Conflux
         ]);
 
         $this->cfx = new Cfx($this);
+        $this->wallet = new Wallet($this->networkId);
     }
 
     public function getProvider(): IProvider
@@ -44,6 +47,6 @@ class Conflux
 
     public function getWallet()
     {
-        //TODO: getWallet
+        return $this->wallet;
     }
 }
