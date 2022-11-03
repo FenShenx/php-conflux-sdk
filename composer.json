@@ -20,7 +20,8 @@
         "psr/log": "3.x-dev",
         "phpseclib/phpseclib": "^3.0",
         "kornrunner/keccak": "^1",
-        "simplito/elliptic-php": "^1"
+        "simplito/elliptic-php": "^1",
+        "web3p/rlp": "^0"
     },
     "require-dev": {
         "phpunit/phpunit": "10.0.x-dev"
