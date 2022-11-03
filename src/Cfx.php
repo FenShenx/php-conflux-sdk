@@ -11,7 +11,7 @@ use phpseclib3\Math\BigInteger;
 /**
  * @method string clientVersion()
  * @method Drip gasPrice()
- * @method BigInteger epochNumber(EpochNumber|String|int $epochNumber)
+ * @method BigInteger epochNumber(EpochNumber|String|int $epochNumber=null)
  * @method Drip getBalance($address, EpochNumber|String|int|null $epochNumber = null)
  * @method String getAdmin($contractAddress, EpochNumber|String|int|null $epochNumber = null)
  * @method array getSponsorInfo($contractAddress, EpochNumber|String|int|null $epochNumber = null)
