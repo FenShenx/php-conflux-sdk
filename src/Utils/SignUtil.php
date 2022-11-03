@@ -84,6 +84,19 @@ class SignUtil
         return EncodeUtil::decodeCfxAddress($confluxAddress, true)["hex_address"];
     }
 
+    public static function hasNetworkPrefix($address)
+    {
+        if (!is_string($address))
+            return false;
+
+        $parts = explode(":", strtolower($address));
+
+        if (count($parts) !== 2 && count($parts) !== 3)
+            return false;
+
+        return str_starts_with($parts[0], EncodeUtil::PREFIX_CFX);
+    }
+
     private static function initSecp256k1()
     {
         if (empty(self::$secp256k1))
