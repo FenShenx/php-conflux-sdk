@@ -2,7 +2,9 @@
 
 namespace Fenshenx\PhpConfluxSdk;
 
+use Elliptic\EC;
 use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
+use kornrunner\Keccak;
 use phpseclib3\Math\BigInteger;
 use Web3p\RLP\RLP;
 
@@ -28,17 +30,24 @@ class Transaction
 
     public function hash()
     {
-
+        return FormatUtil::zeroPrefix(Keccak::hash($this->encode(true), 256));
     }
 
-    public function sign($privateKey, $networkId)
+    public function sign($privateKey)
     {
+        $ec = new EC('secp256k1');
+        $signed = $ec->sign(Keccak::hash($this->encode(), 256), $privateKey);
 
+        $this->r = $signed['r'];
+        $this->s = $signed['s'];
+        $this->v = $signed['recoveryParam'];
+
+        return $this;
     }
 
     public function recover()
     {
-
+        //TODO
     }
 
     private function encode($includeSignature = false)
