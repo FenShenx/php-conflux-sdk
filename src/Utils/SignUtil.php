@@ -55,14 +55,14 @@ class SignUtil
 
         $buffer[0] = hex2bin(dechex((hexdec(bin2hex($buffer[0])) & 0x0f) | 0x10));
 
-        return bin2hex($buffer);
+        return FormatUtil::zeroPrefix(bin2hex($buffer));
     }
 
     public static function publicKey2ConfluxAddress($publicKey, $networkId)
     {
         $publicKey = FormatUtil::stripZero($publicKey);
 
-        $address = self::publicKey2Address($publicKey);
+        $address = FormatUtil::stripZero(self::publicKey2Address($publicKey));
         $buffer = hex2bin($address);
 
         if (strlen($buffer) !== 20)
