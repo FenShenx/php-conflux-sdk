@@ -4,12 +4,19 @@ namespace Fenshenx\PhpConfluxSdk;
 
 use Elliptic\EC;
 use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
+use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
 use kornrunner\Keccak;
 use phpseclib3\Math\BigInteger;
 use Web3p\RLP\RLP;
 
 class Transaction
 {
+    public string $r;
+
+    public string $s;
+
+    public int $v;
+
     public function __construct(
         public string $from,
         public int $nonce,
@@ -20,10 +27,7 @@ class Transaction
         public int|string|BigInteger $storageLimit,
         public int|string|BigInteger $epochHeight,
         public int $chainId,
-        public string $data,
-        public string $r,
-        public string $s,
-        public int $v
+        public string $data
     )
     {
     }
@@ -36,11 +40,16 @@ class Transaction
     public function sign($privateKey)
     {
         $ec = new EC('secp256k1');
-        $signed = $ec->sign(Keccak::hash($this->encode(), 256), $privateKey);
+        $signed = $ec->sign(FormatUtil::zeroPrefix(Keccak::hash(hex2bin($this->encode()), 256)), $privateKey);
 
-        $this->r = $signed['r'];
-        $this->s = $signed['s'];
-        $this->v = $signed['recoveryParam'];
+        $res = new EC\Signature($signed);
+        $res->s = $res->s->neg()->add($ec->n);
+        $signed = $res;
+//        var_dump(Keccak::hash(hex2bin($this->encode()), 256));die();
+        var_dump($signed);die();
+        $this->r = FormatUtil::zeroPrefix($signed->r->toString());
+        $this->s = FormatUtil::zeroPrefix($signed->s->toString());
+        $this->v = $signed->recoveryParam;
 
         return $this;
     }
@@ -53,8 +62,8 @@ class Transaction
     private function encode($includeSignature = false)
     {
         $raw = [
-            $this->nonce, $this->gasPrice->getDrip(), $this->gas->getDrip(), FormatUtil::zeroPrefix($this->to),
-            $this->value->getDrip(), $this->getBitintVal($this->storageLimit), $this->getBitintVal($this->epochHeight),
+            $this->nonce, $this->gasPrice->getDripHex(), $this->gas->getDripHex(), SignUtil::confluxAddress2Address($this->to),
+            $this->value->getDripHex(), $this->getBitintVal($this->storageLimit), $this->getBitintVal($this->epochHeight),
             $this->chainId, $this->data ?? ''
         ];
 
@@ -62,13 +71,15 @@ class Transaction
             $raw = [$raw, $this->v, $this->r, $this->s];
 
         $rlp = new RLP();
+
+        var_dump($rlp->encode($raw));
         return $rlp->encode($raw);
     }
 
     private function getBitintVal(int|string|BigInteger $value)
     {
         if ($value instanceof BigInteger)
-            return $value->toString();
+            return FormatUtil::zeroPrefix($value->toHex());
 
         return $value;
     }
