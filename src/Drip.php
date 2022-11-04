@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk;
 
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 use phpseclib3\Math\BigInteger;
 
 class Drip
@@ -67,6 +68,11 @@ class Drip
     public function getDrip()
     {
         return $this->drip->toString();
+    }
+
+    public function getDripHex()
+    {
+        return FormatUtil::zeroPrefix($this->drip->toHex());
     }
 
     public function __toString(): string
