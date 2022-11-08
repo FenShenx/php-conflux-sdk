@@ -6,6 +6,7 @@ use Elliptic\EC;
 use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
 use kornrunner\Keccak;
+use kornrunner\Secp256k1;
 use phpseclib3\Math\BigInteger;
 use Web3p\RLP\RLP;
 
@@ -39,17 +40,12 @@ class Transaction
 
     public function sign($privateKey)
     {
-        $ec = new EC('secp256k1');
-        $signed = $ec->sign(FormatUtil::zeroPrefix(Keccak::hash(hex2bin($this->encode()), 256)), $privateKey);
+        $secp256k1 = new Secp256k1();
+        $signed = $secp256k1->sign(FormatUtil::zeroPrefix(Keccak::hash(hex2bin($this->encode()), 256)), $privateKey);
 
-        $res = new EC\Signature($signed);
-        $res->s = $res->s->neg()->add($ec->n);
-        $signed = $res;
-//        var_dump(Keccak::hash(hex2bin($this->encode()), 256));die();
-        var_dump($signed);die();
-        $this->r = FormatUtil::zeroPrefix($signed->r->toString());
-        $this->s = FormatUtil::zeroPrefix($signed->s->toString());
-        $this->v = $signed->recoveryParam;
+        $this->r = FormatUtil::zeroPrefix(gmp_strval($signed->getR(), 16));
+        $this->s = FormatUtil::zeroPrefix(gmp_strval($signed->getS(), 16));
+        $this->v = $signed->getRecoveryParam();
 
         return $this;
     }
@@ -72,7 +68,6 @@ class Transaction
 
         $rlp = new RLP();
 
-        var_dump($rlp->encode($raw));
         return $rlp->encode($raw);
     }
 
