@@ -6,6 +6,9 @@ use Fenshenx\PhpConfluxSdk\Enums\EpochNumber;
 use Fenshenx\PhpConfluxSdk\Methods\Exceptions\UnknownMethodException;
 use Fenshenx\PhpConfluxSdk\Methods\IMethod;
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
+use Fenshenx\PhpConfluxSdk\Utils\EncodeUtil;
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
+use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
 use phpseclib3\Math\BigInteger;
 
 /**
@@ -29,12 +32,20 @@ use phpseclib3\Math\BigInteger;
  * @method string getBestBlockHash()
  * @method BigInteger getNextNonce($address, EpochNumber|String|int|null $epochNumber = null)
  * @method array getStatus()
+ * @method array estimateGasAndCollateral(array $options, EpochNumber|String|int|null $epochNumber = null)
  */
 class Cfx
 {
+    private int $transactionStorageLimit = 0;
+
     public function __construct(
         private readonly Conflux $conflux
     )
+    {
+
+    }
+
+    public function sendTransaction($options)
     {
 
     }
@@ -58,5 +69,86 @@ class Cfx
 
         //send request
         return $methodObj->send();
+    }
+
+    private function populateAndSignTransaction($options)
+    {
+
+    }
+
+    private function populateTransaction($options)
+    {
+        $defaultGasPrice = $this->conflux->getDefaultGasPrice();
+        $defaultTransactionGasPrice = $this->conflux->getDefaultTransactionGasPrice();
+        $defaultGasRatio = $this->conflux->getDefaultGasRatio();
+        $defaultStorageRatio = $this->conflux->getDefaultStorageRatio();
+
+        $fromAddress = $options['from'];
+
+        if (empty($options['nonce']))
+            $options['nonce'] = FormatUtil::zeroPrefix($this->getNextNonce($fromAddress)->toHex());
+
+        if (empty($options['chainId']))
+            $options['chainId'] = $this->conflux->getNetworkId();
+
+        if (empty($options['chainId'])) {
+
+            $status = $this->getStatus();
+            $options['chainId'] = $status["chainId"];
+        }
+
+        if (empty($options['epochHeight']))
+            $options['epochHeight'] = FormatUtil::zeroPrefix($this->epochNumber()->toHex());
+
+        if (empty($options['gas']) || empty($options['storageLimit'])) {
+
+            $isToUser = isset($options['to']) &&
+                !empty($options['to']) &&
+                EncodeUtil::decodeCfxAddress($options['to'])['type'] === EncodeUtil::TYPE_USER;
+
+            if ($isToUser && empty($options['data'])) {
+                $gas = $defaultTransactionGasPrice;
+                $storageLimit = $this->transactionStorageLimit;
+            } else {
+                /**
+                 * @var Drip $gasLimit
+                 * @var Drip $gasUsed
+                 * @var Drip $storageCollateralized
+                 */
+                list('gasLimit' => $gasLimit, 'gasUsed' => $gasUsed, 'storageCollateralized' => $storageCollateralized)
+                    = $this->estimateGasAndCollateral($options);
+
+                if (!empty($defaultGasRatio)) {
+
+                    $gasBigint = $gasUsed->getDripBigint()->multiply(new BigInteger($defaultGasRatio));
+
+                    $maxGas = new BigInteger(15000000);
+                    if (((int)$gasBigint->subtract($maxGas)->toString()) > 0)
+                        $gasBigint = $maxGas;
+
+                    $gas = new Drip($gasBigint);
+                } else {
+
+                    $gas = $gasLimit;
+                }
+                $storageLimit = new Drip($storageCollateralized->getDripBigint()->multiply(new BigInteger($defaultStorageRatio)));
+            }
+
+            if (empty($options['gas']))
+                $options['gas'] = $gas;
+
+            if (empty($options['storageLimit']))
+                $options['storageLimit'] = $storageLimit;
+        }
+
+        if (empty($options['gasPrice'])) {
+            if (empty($defaultGasPrice)) {
+                $options['gasPrice'] = $this->gasPrice();
+            } else {
+                $options['gasPrice'] = $defaultGasPrice;
+            }
+        }
+
+        return $options;
     }
 }
