@@ -35,7 +35,7 @@ class Transaction
 
     public function hash()
     {
-        return FormatUtil::zeroPrefix(Keccak::hash($this->encode(true), 256));
+        return FormatUtil::zeroPrefix(Keccak::hash(hex2bin($this->encode(true)), 256));
     }
 
     public function sign($privateKey)
