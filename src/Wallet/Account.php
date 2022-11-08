@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk\Wallet;
 
+use Fenshenx\PhpConfluxSdk\Transaction;
 use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
 
@@ -53,9 +54,13 @@ class Account
         return $this->confluxAddress;
     }
 
-    public function signTransaction($options)
+    public function signTransaction($options): Transaction
     {
+        $transaction = new Transaction(...$options);
 
+        $transaction->sign($this->privateKey);
+
+        return $transaction;
     }
 
     public function signMessage($options)

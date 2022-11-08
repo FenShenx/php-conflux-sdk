@@ -73,7 +73,10 @@ class Cfx
 
     private function populateAndSignTransaction($options)
     {
+        $options = $this->populateTransaction($options);
+        $account = $this->conflux->getWallet()->get($options['from']);
 
+        return $account->signTransaction($options)->hash();
     }
 
     private function populateTransaction($options)
