@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk\Utils;
 
+use Fenshenx\PhpConfluxSdk\Drip;
 use Fenshenx\PhpConfluxSdk\Enums\EpochNumber;
 use phpseclib3\Math\BigInteger;
 
@@ -33,6 +34,8 @@ class FormatUtil
         } elseif ($value instanceof BigInteger) {
             $hex = $value->toHex(true);
             $hex = preg_replace('/^0+(?!$)/', '', $hex);
+        } elseif ($value instanceof Drip) {
+            $hex = $value->getDripHex();
         } else {
             throw new \Exception('The value to toHex function is not support.');
         }
