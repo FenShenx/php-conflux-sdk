@@ -243,6 +243,9 @@ class CfxTest extends TestCase
         $this->assertArrayHasKey('gasLimit', $res);
         $this->assertArrayHasKey('gasUsed', $res);
         $this->assertArrayHasKey('storageCollateralized', $res);
+        $this->assertInstanceOf(Drip::class, $res['gasLimit']);
+        $this->assertInstanceOf(Drip::class, $res['gasUsed']);
+        $this->assertInstanceOf(Drip::class, $res['storageCollateralized']);
     }
 
     private function getCfx()
