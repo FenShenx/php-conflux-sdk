@@ -34,8 +34,6 @@ class FormatUtil
         } elseif ($value instanceof BigInteger) {
             $hex = $value->toHex(true);
             $hex = preg_replace('/^0+(?!$)/', '', $hex);
-        } elseif ($value instanceof Drip) {
-            $hex = $value->getDripHex();
         } else {
             throw new \Exception('The value to toHex function is not support.');
         }
