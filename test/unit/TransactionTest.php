@@ -36,7 +36,6 @@ class TransactionTest extends TestCase
 
         $hash = $transaction->sign($fromPrivateKey)->hash();
 
-        var_dump($hash);die();
-        $this->assertSame("", $hash);
+        $this->assertSame("0x1652b027b3b8630f10297e8a0c4c33a87f58a1b055cfa46384b1d57f11b9a616", $hash);
     }
 }
