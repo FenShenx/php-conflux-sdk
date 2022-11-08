@@ -5,6 +5,7 @@ namespace Fenshenx\PhpConfluxSdk;
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
 use Fenshenx\PhpConfluxSdk\Providers\ProviderFactory;
 use Fenshenx\PhpConfluxSdk\Wallet\Wallet;
+use phpseclib3\Math\BigInteger;
 use Psr\Log\LoggerInterface;
 
 class Conflux
@@ -15,11 +16,18 @@ class Conflux
 
     protected Wallet $wallet;
 
+    private Drip $defaultGasPrice;
+
+    private Drip $defaultTransactionGas;
+
     public function __construct(
         private string $url,
         private int $networkId,
         private int $timeout = 30 * 1000,
-        protected ?LoggerInterface $logger = null
+        protected ?LoggerInterface $logger = null,
+        int|BigInteger $defaultGasPrice = null,
+        private int $defaultGasRatio = 1,
+        private float $defaultStorageRatio = 1.1
     )
     {
         $this->provider = ProviderFactory::getProvider($this->url, [
@@ -29,6 +37,11 @@ class Conflux
 
         $this->cfx = new Cfx($this);
         $this->wallet = new Wallet($this->networkId);
+
+        if (!is_null($defaultGasPrice))
+            $this->defaultGasPrice = new Drip($defaultGasPrice);
+
+        $this->defaultTransactionGas = new Drip(21000);
     }
 
     public function getProvider(): IProvider
@@ -49,5 +62,30 @@ class Conflux
     public function getWallet()
     {
         return $this->wallet;
+    }
+
+    public function getNetworkId()
+    {
+        return $this->networkId;
+    }
+
+    public function getDefaultGasPrice()
+    {
+        return clone $this->defaultGasPrice;
+    }
+
+    public function getDefaultTransactionGasPrice()
+    {
+        return clone $this->defaultTransactionGas;
+    }
+
+    public function getDefaultGasRatio()
+    {
+        return $this->defaultGasRatio;
+    }
+
+    public function getDefaultStorageRatio()
+    {
+        return $this->defaultStorageRatio;
     }
 }
