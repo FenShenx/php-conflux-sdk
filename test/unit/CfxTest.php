@@ -229,6 +229,22 @@ class CfxTest extends TestCase
         $this->assertIsString($res['blockNumber']);
     }
 
+    public function testEstimateGasAndCollateral()
+    {
+        $cfx = $this->getCfx();
+
+        $options = [
+            'from' => 'cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t',
+            'to' => 'cfxtest:aapr2jm67p5myymb51g0caszkred0907eayz84w6v3',
+            'value' => Drip::fromCFX(1)
+        ];
+        $res = $cfx->estimateGasAndCollateral($options);
+
+        $this->assertArrayHasKey('gasLimit', $res);
+        $this->assertArrayHasKey('gasUsed', $res);
+        $this->assertArrayHasKey('storageCollateralized', $res);
+    }
+
     private function getCfx()
     {
         $conflux = new Conflux($this->testHost, $this->networkId);
