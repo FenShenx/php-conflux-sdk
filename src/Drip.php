@@ -70,6 +70,11 @@ class Drip
         return $this->drip->toString();
     }
 
+    public function getDripBigint()
+    {
+        return clone $this->drip;
+    }
+
     public function getDripHex()
     {
         return FormatUtil::zeroPrefix($this->drip->toHex());
