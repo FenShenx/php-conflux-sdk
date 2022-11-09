@@ -28,7 +28,7 @@ class Transaction
         public int|string|BigInteger $storageLimit,
         public int|string|BigInteger $epochHeight,
         public int $chainId,
-        public string $data
+        public string $data = ''
     )
     {
     }
