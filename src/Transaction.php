@@ -20,7 +20,7 @@ class Transaction
 
     public function __construct(
         public string $from,
-        public int $nonce,
+        public int|string $nonce,
         public Drip $gasPrice,
         public Drip $gas,
         public string $to,
