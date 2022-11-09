@@ -71,6 +71,9 @@ class Conflux
 
     public function getDefaultGasPrice()
     {
+        if (empty($this->defaultGasPrice))
+            return null;
+
         return clone $this->defaultGasPrice;
     }
 
