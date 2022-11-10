@@ -47,7 +47,14 @@ class Cfx
 
     public function sendTransaction($options)
     {
+        if ($this->conflux->getWallet()->has($options['from'])) {
 
+            $signedTransactionData = $this->populateAndSignTransaction($options);
+            return $this->__call('sendRawTransaction', [FormatUtil::zeroPrefix($signedTransactionData)]);
+        }
+
+        //TODO: cfx_sendTransaction
+        return null;
     }
 
     public function __call(string $name, array $arguments)

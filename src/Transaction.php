@@ -28,14 +28,14 @@ class Transaction
         public int|string|BigInteger $storageLimit,
         public int|string|BigInteger $epochHeight,
         public int $chainId,
-        public string $data = ''
+        public string|null|int $data = 0
     )
     {
     }
 
     public function hash()
     {
-        return FormatUtil::zeroPrefix(Keccak::hash(hex2bin($this->encode(true)), 256));
+        return FormatUtil::zeroPrefix($this->encode(true));
     }
 
     public function sign($privateKey)

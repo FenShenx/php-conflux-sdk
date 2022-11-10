@@ -248,11 +248,38 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(Drip::class, $res['storageCollateralized']);
     }
 
+    public function testSendTransaction()
+    {
+        $conflux = $this->getConflux();
+        $conflux->getWallet()->addPrivateKey("0x634094445fad8532ab6742f9896c6e6de4e43d03145ea573e1d3c8c425aaa549");
+        $options = [
+            'from' => 'cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t',
+            'to' => 'cfxtest:aapr2jm67p5myymb51g0caszkred0907eayz84w6v3',
+            'value' => Drip::fromCFX(1),
+//            'nonce' => '0x03',
+//            'gasPrice' => new Drip(new BigInteger('0x3b9aca00', 16)),
+//            'gas' => new Drip(new BigInteger('0x5208', 16)),
+//            'storageLimit' => 0,
+//            'epochHeight' => '0x05e5efd6',
+//            'chainId' => $this->networkId,
+//            'data' => null
+        ];
+
+        $res = $conflux->getCfx()->sendTransaction($options);
+
+        $this->assertIsString($res);
+    }
+
     private function getCfx()
     {
-        $conflux = new Conflux($this->testHost, $this->networkId);
+        $conflux = $this->getConflux();
         $cfx = $conflux->getCfx();
 
         return $cfx;
+    }
+
+    private function getConflux()
+    {
+        return new Conflux($this->testHost, $this->networkId);
     }
 }
