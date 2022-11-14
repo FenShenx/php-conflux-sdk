@@ -24,14 +24,31 @@ class ContractMethod
 
     public function __construct(
         private string $name,
+        private string $stateMutability = 'nonpayable',
         array $inputs = [],
-        array $outputs = []
+        array $outputs = [],
+        private bool $anonymous = false
     )
     {
         $this->inputsCoders = $this->abis2Coder($inputs);
         $this->outputsCoders = $this->abis2Coder($outputs);
         $this->type = $this->formatType($this->name, array_values($this->inputsCoders));
         $this->signature = substr(Keccak::hash($this->type, 256), 0,10);
+    }
+
+    public function send($args)
+    {
+
+    }
+
+    protected function encodeInputs($inputs)
+    {
+        //TODO
+    }
+
+    protected function decodeOutputs($outputs)
+    {
+        //TODO
     }
 
     /**
