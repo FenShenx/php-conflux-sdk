@@ -8,5 +8,6 @@ class StringHexFormatter implements IFormatter
     public static function format($value)
     {
         //TODO
+        return $value;
     }
 }
