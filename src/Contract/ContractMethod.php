@@ -36,17 +36,12 @@ class ContractMethod
         $this->signature = substr(Keccak::hash($this->type, 256), 0,10);
     }
 
-    public function send($args)
-    {
-
-    }
-
-    protected function encodeInputs($inputs)
+    public function encodeInputs($inputs)
     {
         //TODO
     }
 
-    protected function decodeOutputs($outputs)
+    public function decodeOutputs($outputs)
     {
         //TODO
     }
