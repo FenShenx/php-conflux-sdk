@@ -38,6 +38,6 @@ class Contract
 
         $method = $this->methods[$name];
 
-        return new MethodTransaction($this->conflux, $method, $arguments);
+        return new MethodTransaction($this->conflux, $method, $this->address, $arguments);
     }
 }
