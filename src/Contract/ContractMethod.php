@@ -4,6 +4,7 @@ namespace Fenshenx\PhpConfluxSdk\Contract;
 
 use Fenshenx\PhpConfluxSdk\Contract\Coder\CoderFactory;
 use Fenshenx\PhpConfluxSdk\Contract\Coder\ICoder;
+use kornrunner\Keccak;
 
 class ContractMethod
 {
@@ -17,6 +18,10 @@ class ContractMethod
      */
     private array $outputsCoders = [];
 
+    private string $type;
+
+    private string $signature;
+
     public function __construct(
         private string $name,
         array $inputs = [],
@@ -25,11 +30,23 @@ class ContractMethod
     {
         $this->inputsCoders = $this->abis2Coder($inputs);
         $this->outputsCoders = $this->abis2Coder($outputs);
+        $this->type = $this->formatType($this->name, array_values($this->inputsCoders));
+        $this->signature = substr(Keccak::hash($this->type, 256), 0,10);
     }
 
+    /**
+     * @param string $name
+     * @param ICoder[] $coders
+     * @return string
+     */
     private function formatType($name, $coders)
     {
+        $argTypes = [];
+        foreach ($coders as $coder) {
+            $argTypes[] = $coder->getType();
+        }
 
+        return $name.'('.implode(',', $argTypes).')';
     }
 
     private function abis2Coder($abis)
