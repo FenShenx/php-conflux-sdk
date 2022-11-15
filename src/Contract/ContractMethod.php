@@ -4,6 +4,7 @@ namespace Fenshenx\PhpConfluxSdk\Contract;
 
 use Fenshenx\PhpConfluxSdk\Contract\Coder\CoderFactory;
 use Fenshenx\PhpConfluxSdk\Contract\Coder\ICoder;
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 use kornrunner\Keccak;
 
 class ContractMethod
@@ -36,14 +37,21 @@ class ContractMethod
         $this->signature = substr(Keccak::hash($this->type, 256), 0,10);
     }
 
-    public function encodeInputs($inputs)
+    public function encodeInputs(array $inputs)
     {
-        //TODO
+        $data = $this->signature;
+
+        if (!empty($inputs)) {
+            //TODO
+        }
+
+        return FormatUtil::zeroPrefix($data);
     }
 
     public function decodeOutputs($outputs)
     {
         //TODO
+        var_dump($outputs);
     }
 
     /**

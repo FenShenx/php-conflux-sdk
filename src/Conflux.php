@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk;
 
+use Fenshenx\PhpConfluxSdk\Contract\Contract;
 use Fenshenx\PhpConfluxSdk\Providers\IProvider;
 use Fenshenx\PhpConfluxSdk\Providers\ProviderFactory;
 use Fenshenx\PhpConfluxSdk\Wallet\Wallet;
@@ -54,9 +55,9 @@ class Conflux
         return $this->cfx;
     }
 
-    public function getContract()
+    public function getContract($abi, $address)
     {
-        //TODO: getContract
+        return new Contract($this, $address, $abi);
     }
 
     public function getWallet()
