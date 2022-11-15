@@ -15,7 +15,7 @@ class CoderFactory
                 return new TupleCoder($type);
 
             if ($type === 'address')
-                return new AddressCoder($type, $abi['networkId']);
+                return new AddressCoder($type);
 
             if (preg_match('/^(int|uint)([0-9]*)$/', $type))
                 return new IntegerCoder($type);
@@ -35,6 +35,7 @@ class CoderFactory
             throw new \Exception('Unknown type');
         } else {
 
+            var_dump($abi);
             return new ArrayCoder($type);
         }
     }

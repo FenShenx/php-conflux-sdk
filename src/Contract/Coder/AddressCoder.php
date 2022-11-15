@@ -7,8 +7,7 @@ class AddressCoder implements ICoder
     use CoderTrait;
 
     public function __construct(
-        private string $type,
-        private int $networkId
+        private string $type
     )
     {
         if ($this->type !== 'address')
