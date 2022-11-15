@@ -52,6 +52,7 @@ class ContractMethod
     {
         //TODO
         var_dump($outputs);
+        return $outputs;
     }
 
     /**
