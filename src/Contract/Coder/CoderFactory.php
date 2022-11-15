@@ -35,7 +35,6 @@ class CoderFactory
             throw new \Exception('Unknown type');
         } else {
 
-            var_dump($abi);
             return new ArrayCoder($type);
         }
     }
