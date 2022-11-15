@@ -10,11 +10,12 @@ class ByteCoder implements ICoder
         private string $type
     )
     {
+        var_dump($this->type);
         if (!preg_match('/^bytes([0-9]*)$/', $type, $byteArr))
             throw new \Exception('Type is not byte');
 
-        $this->baseType = $byteArr[1];
-        $this->bits = $byteArr[2];
+        $this->bits = $byteArr[1];
+        $this->baseType = str_replace($this->type, $this->bits, '');
     }
 
     public function encode($data)
