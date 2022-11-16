@@ -2,19 +2,31 @@
 
 namespace Fenshenx\PhpConfluxSdk\Contract\Coder;
 
+use Fenshenx\PhpConfluxSdk\Contract\HexStream;
+use phpseclib3\Math\BigInteger;
+
 class IntegerCoder implements ICoder
 {
     use CoderTrait;
 
+    private int $size;
+
+    private BigInteger $bound;
+
     public function __construct(
-        private string $type
+        private string $type,
+        private bool $signed = false
     )
     {
         if (!preg_match('/^(int|uint)([0-9]*)$/', $type, $typeArr))
             throw new \Exception('Type is not int/uint');
 
         $this->baseType = $typeArr[1];
-        $this->bits = $typeArr[2];
+        $this->bits = empty($typeArr[2]) ? 256 : (int)$typeArr[2];
+        $this->size = $this->bits / 8;
+
+        $bound = new BigInteger(1);
+        $this->bound = $bound->bitwise_leftShift($this->bits - ($this->signed ? 1 : 0));
     }
 
     public function encode($data)
@@ -22,23 +34,18 @@ class IntegerCoder implements ICoder
         // TODO: Implement encode() method.
     }
 
-    public function decode($data)
+    public function decode(HexStream $data)
     {
-        // TODO: Implement decode() method.
-    }
+        $value = new BigInteger($data->read($this->size * 2), 16);
 
-    public function getType()
-    {
-        // TODO: Implement getType() method.
-    }
+        if ($this->signed && $value->compare($this->bound) >= 0) {
 
-    public function getBaseType()
-    {
-        // TODO: Implement getBaseType() method.
-    }
+            $mask = new BigInteger(1);
+            $mask = $mask->bitwise_leftShift($this->size * 8);
 
-    public function getBits()
-    {
-        // TODO: Implement getBits() method.
+            $value = $value->subtract($mask);
+        }
+
+        return $value;
     }
 }

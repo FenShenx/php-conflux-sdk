@@ -10,6 +10,8 @@ trait CoderTrait
 
     private int|null $bits = null;
 
+    private bool $dynamic = false;
+
     public function getType()
     {
         return $this->type ?? '';
@@ -23,5 +25,10 @@ trait CoderTrait
     public function getBits()
     {
         return $this->bits;
+    }
+
+    public function getDynamic(): bool
+    {
+        return $this->dynamic;
     }
 }

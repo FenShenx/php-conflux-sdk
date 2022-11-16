@@ -2,6 +2,9 @@
 
 namespace Fenshenx\PhpConfluxSdk\Contract\Coder;
 
+use Fenshenx\PhpConfluxSdk\Contract\HexStream;
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
+
 class StringCoder extends ByteCoder
 {
     use CoderTrait;
@@ -11,15 +14,27 @@ class StringCoder extends ByteCoder
     )
     {
         parent::__construct('bytes');
+
+        $this->dynamic = true;
     }
 
     public function encode($data)
     {
-        // TODO: Implement encode() method.
+        if (!is_string($data))
+            throw new \Exception('value type error, $data must be a string');
+
+        return parent::encode($data);
     }
 
-    public function decode($data)
+    public function decode(HexStream $data)
     {
-        // TODO: Implement decode() method.
+        $bytes = parent::decode($data);
+
+        return $this->bytes2Str($bytes);
+    }
+
+    private function bytes2Str($bytes)
+    {
+        return hex2bin(FormatUtil::stripZero($bytes));
     }
 }

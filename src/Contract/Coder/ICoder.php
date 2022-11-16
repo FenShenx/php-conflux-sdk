@@ -12,6 +12,8 @@ interface ICoder
 
     public function getBits();
 
+    public function getDynamic(): bool;
+
     public function encode($data);
 
     public function decode(HexStream $data);
