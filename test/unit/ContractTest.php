@@ -12,7 +12,6 @@ class ContractTest extends TestCase
         $contract = $this->getContract();
 
         $name = $contract->name()->send();
-        var_dump($name);
 
         $this->assertSame("Guochao UAT", $name);
     }
