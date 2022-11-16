@@ -13,7 +13,7 @@ class ByteCoder implements ICoder
         if (!preg_match('/^bytes([0-9]*)$/', $type, $byteArr))
             throw new \Exception('Type is not byte');
 
-        $this->bits = (int)$byteArr[1];
+        $this->bits = ((int)$byteArr[1]) ?? null;
         $this->baseType = str_replace($this->type, $this->bits, '');
     }
 

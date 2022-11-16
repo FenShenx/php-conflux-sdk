@@ -2,7 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk\Contract\Coder;
 
-class StringCoder implements ICoder
+class StringCoder extends ByteCoder
 {
     use CoderTrait;
 
@@ -10,7 +10,7 @@ class StringCoder implements ICoder
         private string $type
     )
     {
-
+        parent::__construct('bytes');
     }
 
     public function encode($data)
