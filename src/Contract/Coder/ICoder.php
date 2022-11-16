@@ -2,6 +2,8 @@
 
 namespace Fenshenx\PhpConfluxSdk\Contract\Coder;
 
+use Fenshenx\PhpConfluxSdk\Contract\HexStream;
+
 interface ICoder
 {
     public function getType();
@@ -12,5 +14,5 @@ interface ICoder
 
     public function encode($data);
 
-    public function decode($data);
+    public function decode(HexStream $data);
 }

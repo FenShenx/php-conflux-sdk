@@ -50,9 +50,12 @@ class ContractMethod
 
     public function decodeOutputs($outputs)
     {
-        //TODO
-        var_dump($outputs);
-        return $outputs;
+        $hex = new HexStream($outputs);
+
+        $coders = array_reverse($this->outputsCoders);
+        $coder = array_pop($coders);
+
+        return $coder->decode($hex);
     }
 
     /**
