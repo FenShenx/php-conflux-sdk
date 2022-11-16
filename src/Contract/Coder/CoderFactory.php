@@ -14,8 +14,14 @@ class CoderFactory
             if ($type === 'tuple')
                 return new TupleCoder($type);
 
-            if ($type === 'address')
-                return new AddressCoder($type);
+            if ($type === 'address') {
+
+                $networkId  = $abi['networkId'];
+                if (empty($networkId))
+                    $networkId = null;
+
+                return new AddressCoder($type, $networkId);
+            }
 
             if (preg_match('/^(int|uint)([0-9]*)$/', $type))
                 return new IntegerCoder($type);
