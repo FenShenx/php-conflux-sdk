@@ -21,10 +21,13 @@ class MethodTransaction
 
     }
 
+    /**
+     * send call
+     * @return array|mixed|\phpseclib3\Math\BigInteger|void
+     * @throws \Exception
+     */
     public function send()
     {
-        //TODO: Sign data
-
         $encodedData = $this->contractMethod->encodeInputs($this->args);
 
         $res = $this->conflux->getCfx()->call([
@@ -35,11 +38,15 @@ class MethodTransaction
         return $this->contractMethod->decodeOutputs($res);
     }
 
+    /**
+     * send transaction call
+     * @param Account $account
+     * @return void
+     */
     public function sendTransaction(Account $account)
     {
-        $this->signAccount = $account;
-
-        return $this;
+        //TODO sign data
+        //TODO send
     }
 
     public function estimateGasAndCollateral(Account $account, EpochNumber|String|int|null $epochNumber = null)
