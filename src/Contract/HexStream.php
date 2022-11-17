@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk\Contract;
 
+use Fenshenx\PhpConfluxSdk\Utils\EncodeUtil;
 use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 
 class HexStream
@@ -10,7 +11,7 @@ class HexStream
 
     private int $index;
 
-    private int $wordCharts = 32 * 2;
+    private int $wordCharts = EncodeUtil::WORD_CHARS;
 
     public function __construct(
         string $hex
