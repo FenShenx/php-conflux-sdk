@@ -17,8 +17,11 @@ class Contract
         string|array $abis
     )
     {
+        if (!is_string($abis) && !is_array($abis))
+            throw new \Exception('abis must be json string or array');
+
         if (is_string($abis))
-            $abis = json_decode($abis);
+            $abis = json_decode($abis, true);
 
         foreach ($abis as $abi) {
             $this->methods[$abi['name']] = new ContractMethod(
