@@ -32,6 +32,10 @@ class EncodeUtil
 
     const ALPHABET = 'ABCDEFGHJKMNPRSTUVWXYZ0123456789';
 
+    const WORD_BYTES = 32;
+
+    const WORD_CHARS = self::WORD_BYTES * 2;
+
     private function __construct()
     {
     }
