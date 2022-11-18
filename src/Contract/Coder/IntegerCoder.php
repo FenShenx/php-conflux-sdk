@@ -3,6 +3,7 @@
 namespace Fenshenx\PhpConfluxSdk\Contract\Coder;
 
 use Fenshenx\PhpConfluxSdk\Contract\HexStream;
+use Fenshenx\PhpConfluxSdk\Utils\EncodeUtil;
 use phpseclib3\Math\BigInteger;
 
 class IntegerCoder implements ICoder
@@ -12,6 +13,8 @@ class IntegerCoder implements ICoder
     private int $size;
 
     private BigInteger $bound;
+
+    private BigInteger $uintBound;
 
     public function __construct(
         private string $type,
@@ -27,11 +30,29 @@ class IntegerCoder implements ICoder
 
         $bound = new BigInteger(1);
         $this->bound = $bound->bitwise_leftShift($this->bits - ($this->signed ? 1 : 0));
+
+        $uintBound = new BigInteger(1);
+        $this->uintBound = $uintBound->bitwise_leftShift(EncodeUtil::WORD_BYTES * 8);
     }
 
     public function encode($data)
     {
-        // TODO: Implement encode() method.
+        if ($data instanceof BigInteger)
+            $number = $data;
+        else
+            $number = new BigInteger($data);
+
+        $twosComplement = clone $number;
+
+        if ($this->signed && $number->compare(new BigInteger(0)) < 0) {
+            $twosComplement = $number->add($this->bound);
+            $number = $number->add($this->uintBound);
+        }
+
+        if ((new BigInteger(0))->compare($twosComplement) <= 0 && $twosComplement->compare($this->bound) < 0)
+            return HexStream::alignHex($number->toHex());
+
+        throw new \Exception('bound error');
     }
 
     public function decode(HexStream $data)

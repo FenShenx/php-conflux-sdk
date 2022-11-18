@@ -3,6 +3,7 @@
 namespace Test\Unit;
 
 use Fenshenx\PhpConfluxSdk\Conflux;
+use phpseclib3\Math\BigInteger;
 use Test\TestCase;
 
 class ContractTest extends TestCase
@@ -18,6 +19,31 @@ class ContractTest extends TestCase
         $res = $contract->getAddress($this->fromAddress)->send();
 
         $this->assertSame($this->fromAddress, $res);
+    }
+
+    public function testGetUints()
+    {
+        $params = [new BigInteger(10), new BigInteger(100), new BigInteger(1000), new BigInteger(10000)];
+        $contract = $this->getContract();
+
+        $res = $contract->getUints(...$params)->send();
+
+        /**
+         * @var BigInteger $v
+         */
+        foreach (array_values($res) as $k => $v) {
+            $this->assertSame($params[$k]->toHex(), $v->toHex());
+        }
+
+        $params2 = [10, 100, 1000, 10000];
+
+        $res2 = $contract->getUints(...$params2)->send();
+        /**
+         * @var BigInteger $v
+         */
+        foreach (array_values($res2) as $k => $v) {
+            $this->assertSame($params2[$k], (int)$v->toString());
+        }
     }
 
     private function getContract()
