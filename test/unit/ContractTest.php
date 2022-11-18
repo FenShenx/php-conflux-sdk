@@ -7,18 +7,9 @@ use Test\TestCase;
 
 class ContractTest extends TestCase
 {
-    public function testName()
-    {
-        $contract = $this->getContract();
-
-        $name = $contract->name()->send();
-
-        $this->assertSame("Guochao UAT", $name);
-    }
-
     private function getContract()
     {
-        $contractAddress = "cfxtest:ace585c5b1bbgvdjnzgasyj8r987j7b3uuayypyj16";
+        $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";
 
         $conflux = new Conflux($this->testHost, $this->networkId);
         $abi = json_decode(file_get_contents(__DIR__.'/../static/'.$contractAddress.'.json'), true);

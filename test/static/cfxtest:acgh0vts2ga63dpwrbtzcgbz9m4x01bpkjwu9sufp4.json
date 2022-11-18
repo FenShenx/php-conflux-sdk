@@ -1,0 +1,292 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor",
+    "name": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "from",
+        "type": "address",
+        "networkId": 1
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "to",
+        "type": "address",
+        "networkId": 1
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Sent",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "minter",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address",
+        "networkId": 1
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address",
+        "networkId": 1
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "mint",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address",
+        "networkId": 1
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "send",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "tokenOwner",
+        "type": "address",
+        "networkId": 1
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "balance",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "addr",
+        "type": "address",
+        "networkId": 1
+      }
+    ],
+    "name": "getAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "addrR",
+        "type": "address",
+        "networkId": 1
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "ui32",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint64",
+        "name": "ui64",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint128",
+        "name": "ui128",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ui256",
+        "type": "uint256"
+      }
+    ],
+    "name": "getUints",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "ui32R",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint64",
+        "name": "ui64R",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint128",
+        "name": "ui128R",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ui256R",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "name": "getString",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "sR",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes",
+        "name": "b",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "b16",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "b32",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getBytes",
+    "outputs": [
+      {
+        "internalType": "bytes",
+        "name": "bR",
+        "type": "bytes"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "b16R",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "b32R",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "b",
+        "type": "bool"
+      }
+    ],
+    "name": "getBool",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "bR",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "arr",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "getUintArr",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "arrR",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address[]",
+        "name": "arr",
+        "type": "address[]"
+      }
+    ],
+    "name": "getAddressArr",
+    "outputs": [
+      {
+        "internalType": "address[]",
+        "name": "arrR",
+        "type": "address[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
