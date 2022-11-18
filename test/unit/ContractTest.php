@@ -16,7 +16,6 @@ class ContractTest extends TestCase
         $contract = $this->getContract();
 
         $res = $contract->getAddress($this->fromAddress)->send();
-        var_dump($res);
 
         $this->assertSame($this->fromAddress, $res);
     }
