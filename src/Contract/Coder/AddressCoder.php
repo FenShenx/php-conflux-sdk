@@ -2,6 +2,10 @@
 
 namespace Fenshenx\PhpConfluxSdk\Contract\Coder;
 
+use Fenshenx\PhpConfluxSdk\Contract\HexStream;
+use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
+use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
+
 class AddressCoder implements ICoder
 {
     use CoderTrait;
@@ -17,11 +21,20 @@ class AddressCoder implements ICoder
 
     public function encode($data)
     {
-        // TODO: Implement encode() method.
+        return HexStream::alignHex(SignUtil::confluxAddress2Address($data));
     }
 
-    public function decode($data)
+    public function decode(HexStream $data)
     {
-        // TODO: Implement decode() method.
+        var_dump($data);
+        $hexAddress = $data->read(40);
+        var_dump($hexAddress);
+
+        $isCfxAddress = str_starts_with($hexAddress, '1') || str_starts_with($hexAddress, '0') || str_starts_with($hexAddress, '8');
+
+        return ($isCfxAddress && !empty($this->networkId)) ?
+            SignUtil::address2ConfluxAddress($hexAddress, $this->networkId)
+            :
+            FormatUtil::zeroPrefix($hexAddress);
     }
 }
