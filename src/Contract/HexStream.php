@@ -50,4 +50,19 @@ class HexStream
 
         return $hex;
     }
+
+    public static function alignHex($hex, $alignLeft = false) {
+
+        $hex = FormatUtil::stripZero($hex);
+        $hexBin = hex2bin($hex);
+        $count = EncodeUtil::WORD_BYTES - (strlen($hexBin) % EncodeUtil::WORD_BYTES);
+
+        if (0 < $count && $count < EncodeUtil::WORD_BYTES) {
+
+            $buf = str_repeat('00', $count);
+            $hex = $alignLeft ? ($hex.$buf) : ($buf.$hex);
+        }
+
+        return FormatUtil::zeroPrefix($hex);
+    }
 }
