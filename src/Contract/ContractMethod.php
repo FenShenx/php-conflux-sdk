@@ -39,7 +39,7 @@ class ContractMethod
         $this->inputsCoders = $this->abis2Coder($inputs);
         $this->outputsCoders = $this->abis2Coder($outputs);
         $this->type = $this->formatType($this->name, array_values($this->inputsCoders));
-        $this->signature = substr(Keccak::hash($this->type, 256), 0,10);
+        $this->signature = substr(Keccak::hash($this->type, 256), 0,8);
         $this->integerCoder = new IntegerCoder('uint');
     }
 
