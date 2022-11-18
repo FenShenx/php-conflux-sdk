@@ -68,7 +68,7 @@ class SignUtil
         if (strlen($buffer) !== 20)
             throw new \Exception("not match hex40");
 
-        return EncodeUtil::encodeCfxAddress($address, $networkId);
+        return self::address2ConfluxAddress($address, $networkId);
     }
 
     public static function privateKey2ConfluxAddress($privateKey, $networkId)
@@ -95,6 +95,11 @@ class SignUtil
             return false;
 
         return str_starts_with($parts[0], EncodeUtil::PREFIX_CFX);
+    }
+
+    public static function address2ConfluxAddress($address, $networkId)
+    {
+        return EncodeUtil::encodeCfxAddress($address, $networkId);
     }
 
     private static function initSecp256k1()
