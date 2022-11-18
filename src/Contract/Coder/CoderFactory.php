@@ -16,7 +16,7 @@ class CoderFactory
 
             if ($type === 'address') {
 
-                $networkId  = $abi['networkId'];
+                $networkId  = $abi['networkId'] ?? null;
                 if (empty($networkId))
                     $networkId = null;
 
