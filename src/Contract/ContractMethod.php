@@ -119,14 +119,14 @@ class ContractMethod
         $arr = array_map(function (ICoder $coder) use ($hex, $startIndex) {
             if ($coder->getDynamic()) {
                 $offset = $this->integerCoder->decode($hex);
-                return $offset->multiply(new BigInteger(2))->add(new BigInteger($startIndex));
+                return new Pointer($offset->multiply(new BigInteger(2))->add(new BigInteger($startIndex))->toHex(), 16);
             } else {
                 return $coder->decode($hex);
             }
         }, array_values($this->outputsCoders));
 
         foreach (array_values($this->outputsCoders) as $k => $v) {
-            if ($arr[$k] instanceof BigInteger) {
+            if ($arr[$k] instanceof Pointer) {
                 if (((int)$arr[$k]->toString()) !== $hex->getCurrentIndex())
                     throw new \Exception('hex stream index error');
 
