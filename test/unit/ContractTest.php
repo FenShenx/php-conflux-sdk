@@ -3,6 +3,7 @@
 namespace Test\Unit;
 
 use Fenshenx\PhpConfluxSdk\Conflux;
+use Fenshenx\PhpConfluxSdk\Drip;
 use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
 use phpseclib3\Math\BigInteger;
 use Test\TestCase;
@@ -126,6 +127,14 @@ class ContractTest extends TestCase
         $params = [$this->fromAddress, 1000];
         $contract = $this->getContract();
         $account = $this->getAccount();
+
+        $gas = $contract->mint(...$params)->estimateGasAndCollateral($account);
+        $this->assertArrayHasKey('gasLimit', $gas);
+        $this->assertArrayHasKey('gasUsed', $gas);
+        $this->assertArrayHasKey('storageCollateralized', $gas);
+        $this->assertInstanceOf(Drip::class, $gas['gasLimit']);
+        $this->assertInstanceOf(Drip::class, $gas['gasUsed']);
+        $this->assertInstanceOf(Drip::class, $gas['storageCollateralized']);
 
         $hash = $contract->mint(...$params)->sendTransaction($account);
 //        var_dump($hash);

@@ -57,6 +57,18 @@ class MethodTransaction
 
     public function estimateGasAndCollateral(Account $account, EpochNumber|String|int|null $epochNumber = null)
     {
+        $encodedData = $this->contractMethod->encodeInputs($this->args);
+        $options = [
+            'from' => $account->getConfluxAddress(),
+            'to' => $this->contractAddress,
+            'data' => $encodedData
+        ];
 
+        $params = [$options];
+
+        if (!empty($epochNumber))
+            $params[] = $epochNumber;
+
+        return $this->conflux->getCfx()->estimateGasAndCollateral(...$params);
     }
 }
