@@ -3,6 +3,7 @@
 namespace Test\Unit;
 
 use Fenshenx\PhpConfluxSdk\Conflux;
+use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
 use phpseclib3\Math\BigInteger;
 use Test\TestCase;
 
@@ -99,6 +100,22 @@ class ContractTest extends TestCase
 
         foreach (array_values($res) as $k => $v) {
             $this->assertSame($param[$k], (int)$v->toString());
+        }
+    }
+
+    public function testGetAddressArr()
+    {
+        $param = [
+            $this->fromAddress,
+            $this->fromAddress,
+            $this->fromAddress
+        ];
+        $contract = $this->getContract();
+
+        $res = $contract->getAddressArr($param)->send();
+
+        foreach ($res as $k => $v) {
+            $this->assertSame(SignUtil::confluxAddress2Address($param[$k]), $v);
         }
     }
 
