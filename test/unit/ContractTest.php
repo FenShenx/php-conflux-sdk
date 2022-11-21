@@ -13,6 +13,8 @@ class ContractTest extends TestCase
 
     private $fromPrivateKey = "0x634094445fad8532ab6742f9896c6e6de4e43d03145ea573e1d3c8c425aaa549";
 
+    private Conflux $conflux;
+
     public function testGetAddress()
     {
         $contract = $this->getContract();
@@ -119,13 +121,56 @@ class ContractTest extends TestCase
         }
     }
 
+    public function testMint()
+    {
+        $params = [$this->fromAddress, 1000];
+        $contract = $this->getContract();
+        $account = $this->getAccount();
+
+        $hash = $contract->mint(...$params)->sendTransaction($account);
+//        var_dump($hash);
+
+        $this->assertIsString($hash);
+    }
+
+    public function testBalanceOf()
+    {
+        $contract = $this->getContract();
+
+        $res = $contract->balanceOf($this->fromAddress)->send();
+
+        $this->assertInstanceOf(BigInteger::class, $res);
+    }
+
+    public function testSend()
+    {
+        $contract = $this->getContract();
+        $account = $this->getAccount();
+
+        $hash = $contract->send('cfxtest:aapr2jm67p5myymb51g0caszkred0907eayz84w6v3', 100)->sendTransaction($account);
+
+        $this->assertIsString($hash);
+    }
+
+    private function getAccount()
+    {
+        if (empty($this->conflux))
+            $this->conflux = new Conflux($this->testHost, $this->networkId);
+
+        $account = $this->conflux->getWallet()->addPrivateKey($this->fromPrivateKey);
+
+        return $account;
+    }
+
     private function getContract()
     {
         $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";
 
-        $conflux = new Conflux($this->testHost, $this->networkId);
+        if (empty($this->conflux))
+            $this->conflux = new Conflux($this->testHost, $this->networkId);
+
         $abi = json_decode(file_get_contents(__DIR__.'/../static/'.$contractAddress.'.json'), true);
-        $contract = $conflux->getContract($abi, $contractAddress);
+        $contract = $this->conflux->getContract($abi, $contractAddress);
 
         return $contract;
     }
