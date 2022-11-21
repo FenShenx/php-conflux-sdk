@@ -18,15 +18,33 @@ class ByteCoder implements ICoder
         if (!preg_match('/^bytes([0-9]*)$/', $type, $byteArr))
             throw new \Exception('Type is not byte');
 
-        $this->bits = ((int)$byteArr[1]) ?? null;
-        $this->baseType = str_replace($this->type, $this->bits, '');
+        $this->bits = empty($byteArr[1]) ? null : ((int)$byteArr[1]);
+        $this->baseType = str_replace($this->type, $this->bits ?? '', '');
         $this->integerCoder = new IntegerCoder('uint');
         $this->dynamic = empty($this->bits);
     }
 
     public function encode($data)
     {
-        // TODO: Implement encode() method.
+        if (!FormatUtil::isZeroPrefixed($data))
+            throw new \Exception('bytes param must start with 0x');
+
+        $data = FormatUtil::stripZero($data);
+        $bytesLen = strlen(hex2bin($data));
+
+        if (!empty($this->bits) && $this->bits !== $bytesLen) {
+            if ($bytesLen < $this->bits)
+                $data .= str_repeat('00', $this->bits - $bytesLen);
+            else
+                throw new \Exception('length not match');
+        }
+
+        $data = FormatUtil::stripZero(HexStream::alignHex($data, true));
+
+        if (empty($this->bits))
+            $data = FormatUtil::stripZero($this->integerCoder->encode($bytesLen)).$data;
+
+        return FormatUtil::zeroPrefix($data);
     }
 
     public function decode(HexStream $data)

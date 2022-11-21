@@ -46,6 +46,24 @@ class ContractTest extends TestCase
         }
     }
 
+    public function testGetBytes()
+    {
+        $params = ['0x64', '0x65', '0x66'];
+        $contract = $this->getContract();
+
+        $res = $contract->getBytes(...$params)->send();
+        $resAssert = [
+            '0x64',
+            '0x65000000000000000000000000000000',
+            '0x6600000000000000000000000000000000000000000000000000000000000000'
+        ];
+
+        foreach (array_values($res) as $k => $v) {
+
+            $this->assertSame($resAssert[$k], $v);
+        }
+    }
+
     private function getContract()
     {
         $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";
