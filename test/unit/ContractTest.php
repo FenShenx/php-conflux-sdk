@@ -64,6 +64,16 @@ class ContractTest extends TestCase
         }
     }
 
+    public function testGetString()
+    {
+        $param = 'abcdefghijklmn';
+        $contract = $this->getContract();
+
+        $res = $contract->getString($param)->send();
+
+        $this->assertSame($param, $res);
+    }
+
     private function getContract()
     {
         $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";

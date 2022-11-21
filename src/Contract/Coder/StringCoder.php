@@ -23,7 +23,7 @@ class StringCoder extends ByteCoder
         if (!is_string($data))
             throw new \Exception('value type error, $data must be a string');
 
-        return parent::encode($data);
+        return parent::encode(FormatUtil::zeroPrefix(bin2hex($data)));
     }
 
     public function decode(HexStream $data)
