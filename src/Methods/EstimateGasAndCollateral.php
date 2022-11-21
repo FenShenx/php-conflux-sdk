@@ -13,7 +13,6 @@ class EstimateGasAndCollateral extends BaseMethod
 
     protected array $requestFormatters = [
         0 => [
-            'data' => StringHexFormatter::class,
             'gas' => HexFormatter::class,
             'gasPrice' => HexFormatter::class,
             'value' => HexFormatter::class,
