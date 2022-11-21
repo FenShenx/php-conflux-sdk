@@ -26,9 +26,7 @@ class AddressCoder implements ICoder
 
     public function decode(HexStream $data)
     {
-        var_dump($data);
         $hexAddress = $data->read(40);
-        var_dump($hexAddress);
 
         $isCfxAddress = str_starts_with($hexAddress, '1') || str_starts_with($hexAddress, '0') || str_starts_with($hexAddress, '8');
 
