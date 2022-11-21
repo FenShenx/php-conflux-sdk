@@ -121,8 +121,15 @@ class ContractMethod
 
     public function decodeOutputs($outputs)
     {
-        $integerCoder = new IntegerCoder('uint');
         $hex = new HexStream($outputs);
+
+        return self::decode($this->outputsCoders, $hex);
+    }
+
+    public static function decode(array $coder, HexStream $hex)
+    {
+        $integerCoder = new IntegerCoder('uint');
+
         $startIndex = $hex->getCurrentIndex();
 
         $arr = array_map(function (ICoder $coder) use ($hex, $startIndex, $integerCoder) {
@@ -132,9 +139,9 @@ class ContractMethod
             } else {
                 return $coder->decode($hex);
             }
-        }, array_values($this->outputsCoders));
+        }, array_values($coder));
 
-        foreach (array_values($this->outputsCoders) as $k => $v) {
+        foreach (array_values($coder) as $k => $v) {
             if ($arr[$k] instanceof Pointer) {
                 if (((int)$arr[$k]->toString()) !== $hex->getCurrentIndex())
                     throw new \Exception('hex stream index error');
@@ -146,13 +153,13 @@ class ContractMethod
         $arrLength = count($arr);
 
         if ($arrLength === 0)
-            return;
+            return null;
 
         if ($arrLength === 1)
             return $arr[0];
 
         $resArr = [];
-        $outputKeys = array_keys($this->outputsCoders);
+        $outputKeys = array_keys($coder);
         foreach ($arr as $k => $item) {
             $resArr[$outputKeys[$k]] = $item;
         }
