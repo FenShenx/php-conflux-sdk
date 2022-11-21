@@ -90,6 +90,18 @@ class ContractTest extends TestCase
         $this->assertSame($param2, $res2);
     }
 
+    public function testGetUintArr()
+    {
+        $param = [1, 2, 3, 10, 20, 30];
+        $contract = $this->getContract();
+
+        $res = $contract->getUintArr($param)->send();
+
+        foreach (array_values($res) as $k => $v) {
+            $this->assertSame($param[$k], (int)$v->toString());
+        }
+    }
+
     private function getContract()
     {
         $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";
