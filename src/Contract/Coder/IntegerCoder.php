@@ -49,8 +49,11 @@ class IntegerCoder implements ICoder
             $number = $number->add($this->uintBound);
         }
 
-        if ((new BigInteger(0))->compare($twosComplement) <= 0 && $twosComplement->compare($this->bound) < 0)
-            return HexStream::alignHex($number->toHex());
+        if ((new BigInteger(0))->compare($twosComplement) <= 0 && $twosComplement->compare($this->bound) < 0) {
+
+            $hex = $number->toHex() === '' ? '0x00' : $number->toHex();
+            return HexStream::alignHex($hex);
+        }
 
         throw new \Exception('bound error');
     }
