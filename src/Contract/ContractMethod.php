@@ -26,8 +26,6 @@ class ContractMethod
 
     private string $signature;
 
-    private ICoder $integerCoder;
-
     public function __construct(
         private string $name,
         private string $stateMutability = 'nonpayable',
@@ -40,7 +38,6 @@ class ContractMethod
         $this->outputsCoders = $this->abis2Coder($outputs);
         $this->type = $this->formatType($this->name, array_values($this->inputsCoders));
         $this->signature = substr(Keccak::hash($this->type, 256), 0,8);
-        $this->integerCoder = new IntegerCoder('uint');
     }
 
     public function encodeInputs(array $inputs)
@@ -49,76 +46,88 @@ class ContractMethod
 
         if (!empty($inputs)) {
 
-            $inputKeys = array_keys($inputs);
-            if ($inputKeys != range(0, count($inputs)-1)) {
-                //inputs is key => value array
-                //PHP8.0 Named Arguments https://www.php.net/manual/en/functions.arguments.php#functions.named-arguments
-                $inputCoderKeysIndex = array_flip(array_keys($this->inputsCoders));
-
-                $newInputs = [];
-                foreach ($inputs as $k => $v) {
-
-                    if (!isset($inputCoderKeysIndex[$k]))
-                        throw new \Exception("Undefined param".$k);
-
-                    $newInputs[$inputCoderKeysIndex[$k]] = $v;
-                }
-
-                //resort inputs array
-                ksort($newInputs);
-                $inputs = $newInputs;
-            }
-
-            //encode params
-            $staticList = [];
-            $dynamicList = [];
-            $offset = 0;
-
-            foreach (array_values($this->inputsCoders) as $k => $coder) {
-
-                if (!isset($inputs[$k]))
-                    break;
-
-                $value = $inputs[$k];
-                $buffer = $coder->encode($value);
-
-                if ($coder->getDynamic()) {
-
-                    $offset += EncodeUtil::WORD_BYTES;
-                    $staticList[] = new BigInteger(count($dynamicList));  // push index of dynamic to static
-                    $dynamicList[] = $buffer;
-                } else {
-
-                    $offset += strlen(hex2bin(FormatUtil::stripZero($buffer)));
-                    $staticList[] = $buffer;
-                }
-            }
-
-            foreach ($staticList as $k => $v) {
-                if ($v instanceof BigInteger) {
-                    $staticList[$k] = $this->integerCoder->encode($offset);
-                    $offset += strlen(hex2bin(FormatUtil::stripZero($dynamicList[(int)$v->toString()])));
-                }
-            }
-
-            $encoded = implode(array_map(function ($hex) {
-                return FormatUtil::stripZero($hex);
-            }, array_merge($staticList, $dynamicList)));
-
-            $data .= $encoded;
+            $data .= self::encode($this->inputsCoders, $inputs);
         }
 
         return FormatUtil::zeroPrefix($data);
     }
 
+    /**
+     * @param ICoder[] $coders
+     * @param array $data
+     * @return string
+     */
+    public static function encode(array $coders, array $inputs)
+    {
+        $integerCoder = new IntegerCoder('uint');
+        $inputKeys = array_keys($inputs);
+        if ($inputKeys != range(0, count($inputs)-1)) {
+            //inputs is key => value array
+            //PHP8.0 Named Arguments https://www.php.net/manual/en/functions.arguments.php#functions.named-arguments
+            $inputCoderKeysIndex = array_flip(array_keys($coders));
+
+            $newInputs = [];
+            foreach ($inputs as $k => $v) {
+
+                if (!isset($inputCoderKeysIndex[$k]))
+                    throw new \Exception("Undefined param".$k);
+
+                $newInputs[$inputCoderKeysIndex[$k]] = $v;
+            }
+
+            //resort inputs array
+            ksort($newInputs);
+            $inputs = $newInputs;
+        }
+
+        //encode params
+        $staticList = [];
+        $dynamicList = [];
+        $offset = 0;
+
+        foreach (array_values($coders) as $k => $coder) {
+
+            if (!isset($inputs[$k]))
+                break;
+
+            $value = $inputs[$k];
+            $buffer = $coder->encode($value);
+
+            if ($coder->getDynamic()) {
+
+                $offset += EncodeUtil::WORD_BYTES;
+                $staticList[] = new BigInteger(count($dynamicList));  // push index of dynamic to static
+                $dynamicList[] = $buffer;
+            } else {
+
+                $offset += strlen(hex2bin(FormatUtil::stripZero($buffer)));
+                $staticList[] = $buffer;
+            }
+        }
+
+        foreach ($staticList as $k => $v) {
+            if ($v instanceof BigInteger) {
+                $staticList[$k] = $integerCoder->encode($offset);
+                $offset += strlen(hex2bin(FormatUtil::stripZero($dynamicList[(int)$v->toString()])));
+            }
+        }
+
+        $encoded = implode(array_map(function ($hex) {
+            return FormatUtil::stripZero($hex);
+        }, array_merge($staticList, $dynamicList)));
+
+        return $encoded;
+    }
+
     public function decodeOutputs($outputs)
     {
+        $integerCoder = new IntegerCoder('uint');
         $hex = new HexStream($outputs);
         $startIndex = $hex->getCurrentIndex();
 
-        $arr = array_map(function (ICoder $coder) use ($hex, $startIndex) {
+        $arr = array_map(function (ICoder $coder) use ($hex, $startIndex, $integerCoder) {
             if ($coder->getDynamic()) {
-                $offset = $this->integerCoder->decode($hex);
+                $offset = $integerCoder->decode($hex);
                 return new Pointer($offset->multiply(new BigInteger(2))->add(new BigInteger($startIndex))->toHex(), 16);
             } else {
                 return $coder->decode($hex);
