@@ -74,6 +74,22 @@ class ContractTest extends TestCase
         $this->assertSame($param, $res);
     }
 
+    public function testGetBool()
+    {
+        $param = true;
+        $contract = $this->getContract();
+
+        $res = $contract->getBool($param)->send();
+
+        $this->assertSame($param, $res);
+
+        $param2 = false;
+
+        $res2 = $contract->getBool($param2)->send();
+
+        $this->assertSame($param2, $res2);
+    }
+
     private function getContract()
     {
         $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";
