@@ -45,8 +45,14 @@ class MethodTransaction
      */
     public function sendTransaction(Account $account)
     {
-        //TODO sign data
-        //TODO send
+        $encodedData = $this->contractMethod->encodeInputs($this->args);
+        $options = [
+            'from' => $account->getConfluxAddress(),
+            'to' => $this->contractAddress,
+            'data' => $encodedData
+        ];
+
+        return $this->conflux->getCfx()->sendTransaction($options);
     }
 
     public function estimateGasAndCollateral(Account $account, EpochNumber|String|int|null $epochNumber = null)

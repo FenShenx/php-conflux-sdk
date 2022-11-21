@@ -160,6 +160,10 @@ class Cfx
             }
         }
 
+        if (empty($options['value'])) {
+            $options['value'] = new Drip(0);
+        }
+
         return $options;
     }
 }
