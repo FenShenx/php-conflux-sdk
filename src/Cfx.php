@@ -39,6 +39,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getTransactionByHash(string $hash)
  * @method array getAccountPendingInfo(string $accountAddress)
  * @method array getAccountPendingTransactions(string $accountAddress, string|null $maybeStartNonce=null, string|null $maybeLimit=null)
+ * @method array checkBalanceAgainstTransaction(string $accountAddress, string $contractAddress, Drip|int|BigInteger $gasLimit, Drip|int|BigInteger $gasPrice, int|BigInteger $storageLimit)
  */
 class Cfx
 {

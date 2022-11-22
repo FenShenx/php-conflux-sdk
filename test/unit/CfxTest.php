@@ -293,6 +293,21 @@ class CfxTest extends TestCase
         $this->assertArrayHasKey('pendingCount', $res);
     }
 
+    public function testCheckBalanceAgainstTransaction()
+    {
+        $cfx = $this->getCfx();
+        $addr = "cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t";
+        $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";
+        $gasLimit = new Drip(0x5208);
+        $gasPrice = new Drip(0x2540be400);
+        $storageLimit = new BigInteger('0x00', 16);
+
+        $res = $cfx->checkBalanceAgainstTransaction($addr, $contractAddress, $gasLimit, $gasPrice, $storageLimit);
+
+        $this->assertIsArray($res);
+        $this->assertArrayHasKey('willPayTxFee', $res);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
