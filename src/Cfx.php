@@ -50,6 +50,7 @@ use phpseclib3\Math\BigInteger;
  * @method BigInteger getConfirmationRiskByHash(string $blockHash)
  * @method array getBlockRewardInfo(EpochNumber|string|int $epochNumber)
  * @method mixed getSupplyInfo(EpochNumber|string|int|null $epochNumber = null)
+ * @method mixed getPoSRewardByEpoch(EpochNumber|string|int $epochNumber)
  */
 class Cfx
 {
