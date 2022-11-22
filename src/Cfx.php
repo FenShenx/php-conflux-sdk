@@ -49,6 +49,7 @@ use phpseclib3\Math\BigInteger;
  * @method mixed getPoSEconomics(EpochNumber|string|int $epochNumber)
  * @method BigInteger getConfirmationRiskByHash(string $blockHash)
  * @method array getBlockRewardInfo(EpochNumber|string|int $epochNumber)
+ * @method mixed getSupplyInfo(EpochNumber|string|int|null $epochNumber = null)
  */
 class Cfx
 {

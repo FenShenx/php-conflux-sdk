@@ -412,6 +412,19 @@ class CfxTest extends TestCase
         }
     }
 
+    public function testGetSupplyInfo()
+    {
+        $cfx = $this->getCfx();
+
+        $res = $cfx->getSupplyInfo();
+
+        $this->assertInstanceOf(BigInteger::class, $res['totalIssued']);
+        $this->assertInstanceOf(BigInteger::class, $res['totalCollateral']);
+        $this->assertInstanceOf(BigInteger::class, $res['totalStaking']);
+        $this->assertInstanceOf(BigInteger::class, $res['totalCirculating']);
+        $this->assertInstanceOf(BigInteger::class, $res['totalEspaceTokens']);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
