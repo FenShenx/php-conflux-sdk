@@ -357,6 +357,15 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(BigInteger::class, $res);
     }
 
+    public function testGetAccumulateInterestRate()
+    {
+        $cfx = $this->getCfx();
+
+        $res = $cfx->getAccumulateInterestRate(EpochNumber::LatestState);
+
+        $this->assertInstanceOf(BigInteger::class, $res);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
