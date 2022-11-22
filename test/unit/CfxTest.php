@@ -282,6 +282,17 @@ class CfxTest extends TestCase
         $this->assertArrayHasKey('pendingCount', $res1);
     }
 
+    public function testGetAccountPendingTransactions()
+    {
+        $cfx = $this->getCfx();
+        $addr = "cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t";
+
+        $res = $cfx->getAccountPendingTransactions($addr);
+
+        $this->assertIsArray($res);
+        $this->assertArrayHasKey('pendingCount', $res);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();

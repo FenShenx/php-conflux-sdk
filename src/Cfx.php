@@ -38,6 +38,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getLogs(array $filter)
  * @method array getTransactionByHash(string $hash)
  * @method array getAccountPendingInfo(string $accountAddress)
+ * @method array getAccountPendingTransactions(string $accountAddress, string|null $maybeStartNonce=null, string|null $maybeLimit=null)
  */
 class Cfx
 {
