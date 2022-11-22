@@ -43,6 +43,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getBlocksByEpoch(EpochNumber|string|int $epochNumber)
  * @method array getSkippedBlocksByEpoch(EpochNumber|string|int $epochNumber)
  * @method mixed getTransactionReceipt(string $transHash)
+ * @method mixed getAccount(string $accountAddress, EpochNumber|string|int|null $epochNumber = null)
  */
 class Cfx
 {

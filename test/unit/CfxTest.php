@@ -338,6 +338,16 @@ class CfxTest extends TestCase
         $this->assertSame($hash, $res['transactionHash']);
     }
 
+    public function testGetAccount()
+    {
+        $cfx = $this->getCfx();
+        $addr = "cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t";
+
+        $res = $cfx->getAccount($addr);
+
+        $this->assertSame($addr, $res['address']);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
