@@ -366,6 +366,21 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(BigInteger::class, $res);
     }
 
+    public function testGetPoSEconomics()
+    {
+        $cfx = $this->getCfx();
+
+        $res = $cfx->getPoSEconomics(EpochNumber::LatestState);
+
+        $this->assertArrayHasKey('distributablePosInterest', $res);
+        $this->assertArrayHasKey('lastDistributeBlock', $res);
+        $this->assertArrayHasKey('totalPosStakingTokens', $res);
+
+        $this->assertInstanceOf(BigInteger::class, $res['distributablePosInterest']);
+        $this->assertInstanceOf(BigInteger::class, $res['lastDistributeBlock']);
+        $this->assertInstanceOf(BigInteger::class, $res['totalPosStakingTokens']);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();

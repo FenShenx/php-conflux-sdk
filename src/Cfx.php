@@ -46,6 +46,7 @@ use phpseclib3\Math\BigInteger;
  * @method mixed getAccount(string $accountAddress, EpochNumber|string|int|null $epochNumber = null)
  * @method BigInteger getInterestRate(EpochNumber|string|int $epochNumber)
  * @method BigInteger getAccumulateInterestRate(EpochNumber|string|int $epochNumber)
+ * @method mixed getPoSEconomics(EpochNumber|string|int $epochNumber)
  */
 class Cfx
 {
