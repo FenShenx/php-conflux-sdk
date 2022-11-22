@@ -13,6 +13,9 @@ class EpochNumberFormatter implements IFormatter
         if ($value instanceof EpochNumber)
             return $value->value;
 
+        if (str_starts_with($value, '0x'))
+            return $value;
+
         return FormatUtil::numberToHex($value, true);
     }
 }
