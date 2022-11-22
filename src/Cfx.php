@@ -71,8 +71,7 @@ class Cfx
             return $this->__call('sendRawTransaction', [FormatUtil::zeroPrefix($signedTransactionData)]);
         }
 
-        //TODO: cfx_sendTransaction
-        return null;
+        throw new \Exception('wallet does not have '.$options['from'].' account');
     }
 
     public function __call(string $name, array $arguments)
