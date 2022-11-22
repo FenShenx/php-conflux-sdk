@@ -47,6 +47,7 @@ use phpseclib3\Math\BigInteger;
  * @method BigInteger getInterestRate(EpochNumber|string|int $epochNumber)
  * @method BigInteger getAccumulateInterestRate(EpochNumber|string|int $epochNumber)
  * @method mixed getPoSEconomics(EpochNumber|string|int $epochNumber)
+ * @method BigInteger getConfirmationRiskByHash(string $blockHash)
  */
 class Cfx
 {

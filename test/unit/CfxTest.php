@@ -381,6 +381,16 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(BigInteger::class, $res['totalPosStakingTokens']);
     }
 
+    public function testGetConfirmationRiskByHash()
+    {
+        $cfx = $this->getCfx();
+
+        $res = $cfx->getConfirmationRiskByHash("0x647ea075ed20dee75658596778110d2f514fa6ae840aa1a8b1e58dea69127bc8");
+
+        if (!is_null($res))
+            $this->assertInstanceOf(BigInteger::class, $res);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
