@@ -391,6 +391,27 @@ class CfxTest extends TestCase
             $this->assertInstanceOf(BigInteger::class, $res);
     }
 
+    public function testGetBlockRewardInfo()
+    {
+        $cfx = $this->getCfx();
+
+        $resArr = $cfx->getBlockRewardInfo(EpochNumber::LatestConfirmed);
+
+        $this->assertIsArray($resArr);
+
+        foreach ($resArr as $res) {
+            $this->assertArrayHasKey('blockHash', $res);
+            $this->assertArrayHasKey('author', $res);
+            $this->assertArrayHasKey('totalReward', $res);
+            $this->assertArrayHasKey('baseReward', $res);
+            $this->assertArrayHasKey('txFee', $res);
+
+            $this->assertInstanceOf(BigInteger::class, $res['totalReward']);
+            $this->assertInstanceOf(BigInteger::class, $res['baseReward']);
+            $this->assertInstanceOf(BigInteger::class, $res['txFee']);
+        }
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
