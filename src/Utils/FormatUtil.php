@@ -34,6 +34,8 @@ class FormatUtil
         } elseif ($value instanceof BigInteger) {
             $hex = $value->toHex(true);
             $hex = preg_replace('/^0+(?!$)/', '', $hex);
+            if ($hex == '')
+                $hex = '0x0';
         } else {
             throw new \Exception('The value to toHex function is not support.');
         }
