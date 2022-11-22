@@ -260,6 +260,17 @@ class CfxTest extends TestCase
         $this->assertIsString($res);
     }
 
+    public function testGetTransactionByHash()
+    {
+        $cfx = $this->getCfx();
+        $hash = "0xe22225bc24c9892e8b7b4be5109534205844f15634f98290177a311b0bd45848";
+
+        $res = $cfx->getTransactionByHash($hash);
+
+        $this->assertIsArray($res);
+        $this->assertSame($hash, $res['hash']);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
