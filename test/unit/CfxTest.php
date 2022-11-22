@@ -319,6 +319,15 @@ class CfxTest extends TestCase
         $this->assertIsArray($res2);
     }
 
+    public function testGetSkippedBlocksByEpoch()
+    {
+        $cfx = $this->getCfx();
+
+        $res = $cfx->getSkippedBlocksByEpoch(EpochNumber::LatestMined);
+
+        $this->assertIsArray($res);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();

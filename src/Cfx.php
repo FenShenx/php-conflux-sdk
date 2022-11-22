@@ -41,6 +41,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getAccountPendingTransactions(string $accountAddress, string|null $maybeStartNonce=null, string|null $maybeLimit=null)
  * @method array checkBalanceAgainstTransaction(string $accountAddress, string $contractAddress, Drip|int|BigInteger $gasLimit, Drip|int|BigInteger $gasPrice, int|BigInteger $storageLimit)
  * @method array getBlocksByEpoch(EpochNumber|string|int $epochNumber)
+ * @method array getSkippedBlocksByEpoch(EpochNumber|string|int $epochNumber)
  */
 class Cfx
 {
