@@ -91,16 +91,6 @@ class CfxTest extends TestCase
         $this->assertInstanceOf(Drip::class, $res);
     }
 
-    public function testGetDepositList()
-    {
-        //TODO:
-    }
-
-    public function testGetVoteList()
-    {
-        //TODO:
-    }
-
     public function testGetCollateralForStorage()
     {
         $cfx = $this->getCfx();
