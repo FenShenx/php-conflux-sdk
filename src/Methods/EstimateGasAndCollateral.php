@@ -5,7 +5,6 @@ namespace Fenshenx\PhpConfluxSdk\Methods;
 use Fenshenx\PhpConfluxSdk\Formatters\DripFormatter;
 use Fenshenx\PhpConfluxSdk\Formatters\EpochNumberFormatter;
 use Fenshenx\PhpConfluxSdk\Formatters\HexFormatter;
-use Fenshenx\PhpConfluxSdk\Formatters\StringHexFormatter;
 
 class EstimateGasAndCollateral extends BaseMethod
 {

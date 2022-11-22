@@ -4,7 +4,6 @@ namespace Fenshenx\PhpConfluxSdk\Methods;
 
 use Fenshenx\PhpConfluxSdk\Formatters\EpochNumberFormatter;
 use Fenshenx\PhpConfluxSdk\Formatters\HexFormatter;
-use Fenshenx\PhpConfluxSdk\Formatters\StringHexFormatter;
 
 class Call extends BaseMethod
 {
