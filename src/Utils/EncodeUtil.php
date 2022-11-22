@@ -54,8 +54,14 @@ class EncodeUtil
             case 0x80:
                 return EncodeUtil::TYPE_CONTRACT;
             case 0x00:
-                throw new \Exception("builtin type TODO");
-            //TODO:
+
+                for ($i = 1; $i < strlen($buffer); $i++) {
+                    $t = hexdec(bin2hex($buffer[$i]));
+                    if ($t !== 0x00)
+                        return EncodeUtil::TYPE_BUILTIN;
+                }
+
+                return EncodeUtil::TYPE_NULL;
             default:
                 return EncodeUtil::TYPE_UNKNOWN;
         }
