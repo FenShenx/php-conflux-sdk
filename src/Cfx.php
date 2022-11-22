@@ -9,6 +9,7 @@ use Fenshenx\PhpConfluxSdk\Providers\IProvider;
 use Fenshenx\PhpConfluxSdk\Utils\EncodeUtil;
 use Fenshenx\PhpConfluxSdk\Utils\FormatUtil;
 use Fenshenx\PhpConfluxSdk\Utils\SignUtil;
+use Fenshenx\PhpConfluxSdk\Wallet\Account;
 use phpseclib3\Math\BigInteger;
 
 /**
@@ -36,6 +37,7 @@ use phpseclib3\Math\BigInteger;
  * @method mixed call(array $callRequest, EpochNumber|String|int|null $epochNumber = null)
  * @method array getLogs(array $filter)
  * @method array getTransactionByHash(string $hash)
+ * @method array getAccountPendingInfo(string $accountAddress)
  */
 class Cfx
 {
