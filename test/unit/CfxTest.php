@@ -308,6 +308,17 @@ class CfxTest extends TestCase
         $this->assertArrayHasKey('willPayTxFee', $res);
     }
 
+    public function testGetBlocksByEpoch()
+    {
+        $cfx = $this->getCfx();
+
+        $res1 = $cfx->getBlocksByEpoch(EpochNumber::LatestMined);
+        $res2 = $cfx->getBlocksByEpoch('0x4350b21');
+
+        $this->assertIsArray($res1);
+        $this->assertIsArray($res2);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();
