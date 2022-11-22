@@ -34,6 +34,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getStatus()
  * @method array estimateGasAndCollateral(array $options, EpochNumber|String|int|null $epochNumber = null)
  * @method mixed call(array $callRequest, EpochNumber|String|int|null $epochNumber = null)
+ * @method array getLogs(array $filter)
  */
 class Cfx
 {
