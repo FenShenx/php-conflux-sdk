@@ -348,6 +348,15 @@ class CfxTest extends TestCase
         $this->assertSame($addr, $res['address']);
     }
 
+    public function testGetInterestRate()
+    {
+        $cfx = $this->getCfx();
+
+        $res = $cfx->getInterestRate(EpochNumber::LatestState);
+
+        $this->assertInstanceOf(BigInteger::class, $res);
+    }
+
     private function getCfx()
     {
         $conflux = $this->getConflux();

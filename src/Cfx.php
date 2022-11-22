@@ -44,6 +44,7 @@ use phpseclib3\Math\BigInteger;
  * @method array getSkippedBlocksByEpoch(EpochNumber|string|int $epochNumber)
  * @method mixed getTransactionReceipt(string $transHash)
  * @method mixed getAccount(string $accountAddress, EpochNumber|string|int|null $epochNumber = null)
+ * @method BigInteger getInterestRate(EpochNumber|string|int $epochNumber)
  */
 class Cfx
 {
