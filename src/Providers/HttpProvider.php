@@ -21,7 +21,7 @@ class HttpProvider extends BaseProvider
         $body = json_decode($response->getBody(), true);
 
         if (isset($body['error']))
-            throw new HttpJsonRpcErrorException($body['error']['message'], $body['error']['code']);
+            throw new HttpJsonRpcErrorException($body['error']['message'].' '.$body['error']['data'] ?? '', $body['error']['code']);
 
         return $body;
     }
