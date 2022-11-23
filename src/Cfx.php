@@ -112,8 +112,20 @@ class Cfx
 
         $fromAddress = $options['from'];
 
-        if (empty($options['nonce']))
-            $options['nonce'] = FormatUtil::zeroPrefix($this->getNextNonce($fromAddress)->toHex());
+        if (empty($options['nonce'])) {
+
+            $nonce = $this->__call("nextNonce", [$fromAddress]);
+
+            if (empty($nonce))
+                $nonce = $this->getNextNonce($fromAddress);
+
+            if ($nonce->toHex() == '')
+                $nonce = '0';
+            else
+                $nonce = $nonce->toHex();
+
+            $options['nonce'] = FormatUtil::zeroPrefix($nonce);
+        }
 
         if (empty($options['chainId']))
             $options['chainId'] = $this->conflux->getNetworkId();
