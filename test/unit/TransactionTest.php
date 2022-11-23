@@ -36,6 +36,6 @@ class TransactionTest extends TestCase
 
         $hash = $transaction->sign($fromPrivateKey)->hash();
 
-        $this->assertSame("0x1652b027b3b8630f10297e8a0c4c33a87f58a1b055cfa46384b1d57f11b9a616", $hash);
+        $this->assertSame("0xf873ef03843b9aca008252089418dc215ceb36aa5141ddcd6101d54b483b7edd20880de0b6b3a7640000808405da1fcd018001a0adaa362e65a002acfd9a3f4fc4e74f1b10ac6ee21c058eb2a868a605969f408ca0549c0a07036bf1a98d069089668907a1188fdb61fb0149f4ff8cc54e2c791769", $hash);
     }
 }
