@@ -66,9 +66,4 @@ class Wallet
 
         return $account;
     }
-
-    public function addKeystore($keystore, $password)
-    {
-        //TODO
-    }
 }
