@@ -50,11 +50,6 @@ class Transaction
         return $this;
     }
 
-    public function recover()
-    {
-        //TODO
-    }
-
     private function encode($includeSignature = false)
     {
         $raw = [
