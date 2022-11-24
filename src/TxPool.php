@@ -9,33 +9,12 @@ use phpseclib3\Math\BigInteger;
 /**
  * @method BigInteger nextNonce($accountAddress)
  */
-class TxPool
+class TxPool extends BaseRpcNamespace
 {
-    public function __construct(
-        private readonly Conflux $conflux
-    )
+    private string $rpcNamespace = "\Fenshenx\PhpConfluxSdk\Methods\TxPool\\";
+
+    protected function getMethodNamespace(): string
     {
-
-    }
-
-    public function __call(string $name, array $arguments)
-    {
-        $method = "\Fenshenx\PhpConfluxSdk\Methods\TxPool\\".ucfirst($name);
-
-        if (!class_exists($method))
-            throw new UnknownMethodException("Unknown method ".$method);
-
-        /**
-         * @var IMethod
-         */
-        $methodObj = new $method($this->conflux->getProvider());
-
-        if (!($methodObj instanceof IMethod))
-            throw new UnknownMethodException("Method ".$method." not instance of ".IMethod::class);
-
-        $methodObj->setParams($arguments);
-
-        //send request
-        return $methodObj->send();
+        return $this->rpcNamespace;
     }
 }

@@ -52,16 +52,11 @@ use phpseclib3\Math\BigInteger;
  * @method mixed getSupplyInfo(EpochNumber|string|int|null $epochNumber = null)
  * @method mixed getPoSRewardByEpoch(EpochNumber|string|int $epochNumber)
  */
-class Cfx
+class Cfx extends BaseRpcNamespace
 {
     private int $transactionStorageLimit = 0;
 
-    public function __construct(
-        private readonly Conflux $conflux
-    )
-    {
-
-    }
+    private string $rpcNamespace = "\Fenshenx\PhpConfluxSdk\Methods\\";
 
     public function sendTransaction($options)
     {
@@ -74,25 +69,9 @@ class Cfx
         throw new \Exception('wallet does not have '.$options['from'].' account');
     }
 
-    public function __call(string $name, array $arguments)
+    protected function getMethodNamespace(): string
     {
-        $method = "\Fenshenx\PhpConfluxSdk\Methods\\".ucfirst($name);
-
-        if (!class_exists($method))
-            throw new UnknownMethodException("Unknown method ".$method);
-
-        /**
-         * @var IMethod
-         */
-        $methodObj = new $method($this->conflux->getProvider());
-
-        if (!($methodObj instanceof IMethod))
-            throw new UnknownMethodException("Method ".$method." not instance of ".IMethod::class);
-
-        $methodObj->setParams($arguments);
-
-        //send request
-        return $methodObj->send();
+        return $this->rpcNamespace;
     }
 
     private function populateAndSignTransaction($options)
