@@ -114,7 +114,8 @@ class Cfx
 
         if (empty($options['nonce'])) {
 
-            $nonce = $this->__call("nextNonce", [$fromAddress]);
+//            $nonce = $this->__call("nextNonce", [$fromAddress]);
+            $nonce = $this->conflux->getTxPool()->nextNonce($fromAddress);
 
             if (empty($nonce))
                 $nonce = $this->getNextNonce($fromAddress);

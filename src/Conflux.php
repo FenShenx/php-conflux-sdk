@@ -15,6 +15,8 @@ class Conflux
 
     protected Cfx $cfx;
 
+    protected TxPool $txPool;
+
     protected Wallet $wallet;
 
     private Drip $defaultGasPrice;
@@ -37,6 +39,7 @@ class Conflux
         ]);
 
         $this->cfx = new Cfx($this);
+        $this->txPool = new TxPool($this);
         $this->wallet = new Wallet($this->networkId);
 
         if (!is_null($defaultGasPrice))
@@ -53,6 +56,11 @@ class Conflux
     public function getCfx()
     {
         return $this->cfx;
+    }
+
+    public function getTxPool()
+    {
+        return $this->txPool;
     }
 
     public function getContract($abi, $address)

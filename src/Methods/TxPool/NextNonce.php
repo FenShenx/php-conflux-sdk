@@ -1,8 +1,9 @@
 <?php
 
-namespace Fenshenx\PhpConfluxSdk\Methods;
+namespace Fenshenx\PhpConfluxSdk\Methods\TxPool;
 
 use Fenshenx\PhpConfluxSdk\Formatters\BigNumberFormatter;
+use Fenshenx\PhpConfluxSdk\Methods\BaseMethod;
 
 class NextNonce extends BaseMethod
 {
