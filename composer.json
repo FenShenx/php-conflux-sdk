@@ -14,23 +14,22 @@
             "email": "qiao@qnt0.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "guzzlehttp/guzzle": "^7.5",
-        "psr/log": "3.x-dev",
         "phpseclib/phpseclib": "^3.0",
         "kornrunner/keccak": "^1",
         "simplito/elliptic-php": "^1",
         "web3p/rlp": "^0",
         "kornrunner/secp256k1": "^0",
-        "ext-gmp": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "10.0.x-dev"
+        "ext-gmp": "*",
+        "psr/log": "^3.0"
     },
     "autoload-dev": {
         "psr-4": {
             "Test\\": "test/"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
     }
 }
