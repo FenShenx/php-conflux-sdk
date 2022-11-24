@@ -86,6 +86,22 @@ $account = $conflux->getWallet()->addRandom();
 \Fenshenx\PhpConfluxSdk\Utils\FormatUtil::stripZero('0x123abcd');   //stripZero('123abcd') return  123abcd
 ```
 
+## Replace default http provider
+
+```php
+//or
+//class MyProvider implements IProvider
+class MyProvider extends \Fenshenx\PhpConfluxSdk\Providers\BaseProvider {
+
+    protected function request($data)
+    {
+        //send the request
+    }
+}
+
+$confluxWithMyProvider = new \Fenshenx\PhpConfluxSdk\Conflux(url: $rpcUrl, networkId: 1, ownProvider: new MyProvider($rpcUrl));
+```
+
 ## Test
 
 ```shell
