@@ -11,9 +11,6 @@ class CoderFactory
 
         if (empty($arrTypeArr)) {
 
-            if ($type === 'tuple')
-                return new TupleCoder($type);
-
             if ($type === 'address') {
 
                 $networkId  = $abi['networkId'] ?? null;
@@ -34,9 +31,6 @@ class CoderFactory
 
             if ($type === 'bool')
                 return new BoolCoder($type);
-
-            if ($type === '')
-                return new NullCoder();
 
             throw new \Exception('Unknown type');
         } else {
