@@ -85,3 +85,9 @@ $account = $conflux->getWallet()->addRandom();
 //Remove 0x from string if the string start with 0x
 \Fenshenx\PhpConfluxSdk\Utils\FormatUtil::stripZero('0x123abcd');   //stripZero('123abcd') return  123abcd
 ```
+
+## Test
+
+```shell
+phpunit
+```
