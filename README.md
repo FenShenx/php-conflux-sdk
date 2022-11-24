@@ -60,3 +60,9 @@ $mintTransactionHash = $contract->mint($account->getConfluxAddress(), 100)->send
 `$conflux->getContract` function return a new `Fenshenx\PhpConfluxSdk\Contract\Contract` class
 
 `$contract->xxxxxxxxx()` return a new `Fenshenx\PhpConfluxSdk\Contract\MethodTransaction` class
+
+## Create Account
+
+```php
+$account = $conflux->getWallet()->addRandom();
+```
