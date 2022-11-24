@@ -30,13 +30,17 @@ class Conflux
         protected ?LoggerInterface $logger = null,
         int|BigInteger $defaultGasPrice = null,
         private int $defaultGasRatio = 1,
-        private float $defaultStorageRatio = 1.1
+        private float $defaultStorageRatio = 1.1,
+        IProvider $ownProvider = null
     )
     {
-        $this->provider = ProviderFactory::getProvider($this->url, [
-            "timeout" => $this->timeout,
-            "logger" => $this->logger
-        ]);
+        if (is_null($ownProvider))
+            $this->provider = ProviderFactory::getProvider($this->url, [
+                "timeout" => $this->timeout,
+                "logger" => $this->logger
+            ]);
+        else
+            $this->provider = $ownProvider;
 
         $this->cfx = new Cfx($this);
         $this->txPool = new TxPool($this);
