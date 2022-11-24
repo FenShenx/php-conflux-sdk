@@ -66,3 +66,22 @@ $mintTransactionHash = $contract->mint($account->getConfluxAddress(), 100)->send
 ```php
 $account = $conflux->getWallet()->addRandom();
 ```
+
+## Utils
+
+```php
+//Eth address to conflux address
+\Fenshenx\PhpConfluxSdk\Utils\SignUtil::address2ConfluxAddress('0xxxx', 1);
+
+//Conflux address to eth address
+\Fenshenx\PhpConfluxSdk\Utils\SignUtil::confluxAddress2Address('cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4');
+
+//Private key to public key
+\Fenshenx\PhpConfluxSdk\Utils\SignUtil::privateKey2PublicKey('0x00xxxxxx');
+
+//Add 0x to string start if the string not start with 0x
+\Fenshenx\PhpConfluxSdk\Utils\FormatUtil::zeroPrefix('0abcdef');   //zeroPrefix('0x0abcdef') reutrn 0x0abcdef
+
+//Remove 0x from string if the string start with 0x
+\Fenshenx\PhpConfluxSdk\Utils\FormatUtil::stripZero('0x123abcd');   //stripZero('123abcd') return  123abcd
+```
