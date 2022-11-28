@@ -2,6 +2,9 @@
 
 namespace Fenshenx\PhpConfluxSdk;
 
+/**
+ * @method mixed getStatus()
+ */
 class Pos extends BaseRpcNamespace
 {
     private string $rpcNamespace = "\Fenshenx\PhpConfluxSdk\Methods\Pos\\";

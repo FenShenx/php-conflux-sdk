@@ -83,7 +83,7 @@ abstract class BaseMethod implements IMethod
     private function format($data, $rules)
     {
         foreach ($data as $k => $v) {
-            if (array_key_exists($k, $rules)) {
+            if (array_key_exists($k, $rules) && !is_null($v)) {
                 if (is_array($rules[$k]))
                     $data[$k] = $this->format($data[$k], $rules[$k]);
                 else
