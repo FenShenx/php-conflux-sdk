@@ -11,6 +11,7 @@ use phpseclib3\Math\BigInteger;
  * @method mixed getCommittee(int|BigInteger $blockNumber = null)
  * @method mixed getBlockByHash(string $blockHash)
  * @method mixed getBlockByNumber(int|BigInteger|BlockTag $blockTag)
+ * @method mixed getRewardsByEpoch(int|BigInteger $epochNumber)
  */
 class Pos extends BaseRpcNamespace
 {

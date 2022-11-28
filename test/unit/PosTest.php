@@ -80,6 +80,16 @@ class PosTest extends TestCase
         $this->assertArrayHasKey('pivotDecision', $res);
     }
 
+    public function testGetRewardsByEpoch()
+    {
+        $pos = $this->getPos();
+
+        $res = $pos->getRewardsByEpoch(0x4a);
+
+        $this->assertArrayHasKey('powEpochHash', $res);
+        $this->assertArrayHasKey('accountRewards', $res);
+    }
+
     private function getPos()
     {
         $conflux = $this->getConflux();
