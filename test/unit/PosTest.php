@@ -32,6 +32,19 @@ class PosTest extends TestCase
         $this->assertArrayHasKey('status', $res);
     }
 
+    public function testGetCommittee()
+    {
+        $pos = $this->getPos();
+
+        $res = $pos->getCommittee();
+
+        $this->assertArrayHasKey('currentCommittee', $res);
+        $this->assertArrayHasKey('epochNumber', $res['currentCommittee']);
+        $this->assertArrayHasKey('quorumVotingPower', $res['currentCommittee']);
+        $this->assertArrayHasKey('totalVotingPower', $res['currentCommittee']);
+        $this->assertArrayHasKey('nodes', $res['currentCommittee']);
+    }
+
     private function getPos()
     {
         $conflux = $this->getConflux();
