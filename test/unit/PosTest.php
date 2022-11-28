@@ -3,6 +3,7 @@
 namespace Test\Unit;
 
 use Fenshenx\PhpConfluxSdk\Conflux;
+use Fenshenx\PhpConfluxSdk\Enums\BlockTag;
 use Test\TestCase;
 
 class PosTest extends TestCase
@@ -61,6 +62,22 @@ class PosTest extends TestCase
         $this->assertArrayHasKey('timestamp', $res);
         $this->assertArrayHasKey('pivotDecision', $res);
         $this->assertSame($param, $res['hash']);
+    }
+
+    public function testGetBlockByNumber()
+    {
+        $pos = $this->getPos();
+
+        $res = $pos->getBlockByNumber(BlockTag::LatestCommitted);
+
+        $this->assertArrayHasKey('hash', $res);
+        $this->assertArrayHasKey('height', $res);
+        $this->assertArrayHasKey('epoch', $res);
+        $this->assertArrayHasKey('round', $res);
+        $this->assertArrayHasKey('lastTxNumber', $res);
+        $this->assertArrayHasKey('parentHash', $res);
+        $this->assertArrayHasKey('timestamp', $res);
+        $this->assertArrayHasKey('pivotDecision', $res);
     }
 
     private function getPos()

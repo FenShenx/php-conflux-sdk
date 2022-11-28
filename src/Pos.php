@@ -2,6 +2,7 @@
 
 namespace Fenshenx\PhpConfluxSdk;
 
+use Fenshenx\PhpConfluxSdk\Enums\BlockTag;
 use phpseclib3\Math\BigInteger;
 
 /**
@@ -9,6 +10,7 @@ use phpseclib3\Math\BigInteger;
  * @method mixed getAccount(string $accountAddress, int|BigInteger $blockNumber = null)
  * @method mixed getCommittee(int|BigInteger $blockNumber = null)
  * @method mixed getBlockByHash(string $blockHash)
+ * @method mixed getBlockByNumber(int|BigInteger|BlockTag $blockTag)
  */
 class Pos extends BaseRpcNamespace
 {
