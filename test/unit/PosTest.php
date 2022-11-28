@@ -90,6 +90,18 @@ class PosTest extends TestCase
         $this->assertArrayHasKey('accountRewards', $res);
     }
 
+    public function testGetTransactionByNumber()
+    {
+        $pos = $this->getPos();
+
+        $res = $pos->getTransactionByNumber(0x4a);
+
+        $this->assertArrayHasKey('hash', $res);
+        $this->assertArrayHasKey('from', $res);
+        $this->assertArrayHasKey('blockHash', $res);
+        $this->assertArrayHasKey('blockNumber', $res);
+    }
+
     private function getPos()
     {
         $conflux = $this->getConflux();

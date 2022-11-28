@@ -12,6 +12,7 @@ use phpseclib3\Math\BigInteger;
  * @method mixed getBlockByHash(string $blockHash)
  * @method mixed getBlockByNumber(int|BigInteger|BlockTag $blockTag)
  * @method mixed getRewardsByEpoch(int|BigInteger $epochNumber)
+ * @method mixed getTransactionByNumber(int|BigInteger $number)
  */
 class Pos extends BaseRpcNamespace
 {
