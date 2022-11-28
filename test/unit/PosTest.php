@@ -21,6 +21,17 @@ class PosTest extends TestCase
         $this->assertArrayHasKey('blockHash', $res['pivotDecision']);
     }
 
+    public function testGetAccount()
+    {
+        $pos = $this->getPos();
+
+        $res = $pos->getAccount('0x88df016429689c079f3b2f6ad39fa052532c56795b733da78a91ebe6a713944b');
+
+        $this->assertArrayHasKey('address', $res);
+        $this->assertArrayHasKey('blockNumber', $res);
+        $this->assertArrayHasKey('status', $res);
+    }
+
     private function getPos()
     {
         $conflux = $this->getConflux();

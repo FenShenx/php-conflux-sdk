@@ -2,8 +2,11 @@
 
 namespace Fenshenx\PhpConfluxSdk;
 
+use phpseclib3\Math\BigInteger;
+
 /**
  * @method mixed getStatus()
+ * @method mixed getAccount(string $accountAddress, int|BigInteger $blockNumber = null)
  */
 class Pos extends BaseRpcNamespace
 {
