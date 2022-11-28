@@ -45,6 +45,24 @@ class PosTest extends TestCase
         $this->assertArrayHasKey('nodes', $res['currentCommittee']);
     }
 
+    public function testGetBlockByHash()
+    {
+        $pos = $this->getPos();
+        $param = '0x18a6b9c237f025e934a1633bae0cc084f81a457e3be75300447e857c3bc89d82';
+
+        $res = $pos->getBlockByHash($param);
+
+        $this->assertArrayHasKey('hash', $res);
+        $this->assertArrayHasKey('height', $res);
+        $this->assertArrayHasKey('epoch', $res);
+        $this->assertArrayHasKey('round', $res);
+        $this->assertArrayHasKey('lastTxNumber', $res);
+        $this->assertArrayHasKey('parentHash', $res);
+        $this->assertArrayHasKey('timestamp', $res);
+        $this->assertArrayHasKey('pivotDecision', $res);
+        $this->assertSame($param, $res['hash']);
+    }
+
     private function getPos()
     {
         $conflux = $this->getConflux();
