@@ -23,7 +23,7 @@
         "web3p/rlp": "^0",
         "kornrunner/secp256k1": "^0",
         "ext-gmp": "*",
-        "psr/log": "^3.0"
+        "psr/log": "^2.0"
     },
     "autoload-dev": {
         "psr-4": {
