@@ -16,14 +16,14 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "^7.5",
         "phpseclib/phpseclib": "^3.0",
         "kornrunner/keccak": "^1",
         "simplito/elliptic-php": "^1",
         "web3p/rlp": "^0",
         "kornrunner/secp256k1": "^0",
         "ext-gmp": "*",
-        "psr/log": "^2.0"
+        "psr/log": "^2.0",
+        "guzzlehttp/guzzle": "^7.0"
     },
     "autoload-dev": {
         "psr-4": {
