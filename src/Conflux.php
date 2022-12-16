@@ -28,7 +28,7 @@ class Conflux
     public function __construct(
         private string $url,
         private int $networkId,
-        private int $timeout = 30 * 1000,
+        private int $timeout = 30,
         protected ?LoggerInterface $logger = null,
         int|BigInteger $defaultGasPrice = null,
         private int $defaultGasRatio = 1,

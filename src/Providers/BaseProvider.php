@@ -15,7 +15,7 @@ abstract class BaseProvider implements IProvider
 
     private $version = "2.0";
 
-    public function __construct(string $url, int $timeout = 30 * 1000, LoggerInterface $logger = null)
+    public function __construct(string $url, int $timeout = 30, LoggerInterface $logger = null)
     {
         $this->url = $url;
         $this->timeout = $timeout;
