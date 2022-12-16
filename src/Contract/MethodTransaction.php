@@ -41,28 +41,37 @@ class MethodTransaction
     /**
      * send transaction call
      * @param Account $account
+     * @param array $options
      * @return void
      */
-    public function sendTransaction(Account $account)
+    public function sendTransaction(Account $account, array $options = [])
     {
         $encodedData = $this->contractMethod->encodeInputs($this->args);
-        $options = [
+
+        if (!is_array($options))
+            $options = [];
+
+        $options = array_merge($options, [
             'from' => $account->getConfluxAddress(),
             'to' => $this->contractAddress,
             'data' => $encodedData
-        ];
+        ]);
 
         return $this->conflux->getCfx()->sendTransaction($options);
     }
 
-    public function estimateGasAndCollateral(Account $account, EpochNumber|String|int|null $epochNumber = null)
+    public function estimateGasAndCollateral(Account $account, array $options = [], EpochNumber|String|int|null $epochNumber = null)
     {
         $encodedData = $this->contractMethod->encodeInputs($this->args);
-        $options = [
+
+        if (!is_array($options))
+            $options = [];
+
+        $options = array_merge($options, [
             'from' => $account->getConfluxAddress(),
             'to' => $this->contractAddress,
             'data' => $encodedData
-        ];
+        ]);
 
         $params = [$options];
 
