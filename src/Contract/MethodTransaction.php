@@ -42,7 +42,7 @@ class MethodTransaction
      * send transaction call
      * @param Account $account
      * @param array $options
-     * @return void
+     * @return string
      */
     public function sendTransaction(Account $account, array $options = [])
     {
