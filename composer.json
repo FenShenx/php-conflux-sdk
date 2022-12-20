@@ -1,7 +1,7 @@
 {
     "name": "fenshenx/php-conflux-sdk",
     "description": "Conflux web3 interface",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "type": "library",
     "license": "MIT",
     "autoload": {
