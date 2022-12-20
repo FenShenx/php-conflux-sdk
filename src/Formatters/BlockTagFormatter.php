@@ -11,7 +11,7 @@ class BlockTagFormatter implements IFormatter
     public static function format($value)
     {
         if ($value instanceof BlockTag)
-            return $value->value;
+            return $value->getCase();
 
         if (str_starts_with($value, '0x'))
             return $value;

@@ -68,7 +68,7 @@ class PosTest extends TestCase
     {
         $pos = $this->getPos();
 
-        $res = $pos->getBlockByNumber(BlockTag::LatestCommitted);
+        $res = $pos->getBlockByNumber(BlockTag::LatestCommitted());
 
         $this->assertArrayHasKey('hash', $res);
         $this->assertArrayHasKey('height', $res);
