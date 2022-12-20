@@ -69,7 +69,7 @@ class FormatUtil
 
     public static function getEpochNumbers()
     {
-        return array_column(EpochNumber::cases(), "value");
+        return EpochNumber::getCases();
     }
 
     public static function validateEpochNumber($epochNumber)

@@ -11,7 +11,7 @@ class EpochNumberFormatter implements IFormatter
     public static function format($value)
     {
         if ($value instanceof EpochNumber)
-            return $value->value;
+            return $value->getCase();
 
         if (str_starts_with($value, '0x'))
             return $value;

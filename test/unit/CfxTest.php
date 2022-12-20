@@ -37,7 +37,7 @@ class CfxTest extends TestCase
         $res1 = $cfx->epochNumber($tag1);
         $this->assertSame($tag1, (int)$res1->toString());
 
-        foreach (EpochNumber::cases() as $tag) {
+        foreach (EpochNumber::getCases() as $tag) {
 
             $res = $cfx->epochNumber($tag);
             $this->assertInstanceOf(BigInteger::class, $res);
@@ -52,7 +52,7 @@ class CfxTest extends TestCase
         $drip = $cfx->getBalance($address);
         $this->assertInstanceOf(Drip::class, $drip);
 
-        $drip2 = $cfx->getBalance($address, EpochNumber::LatestConfirmed);
+        $drip2 = $cfx->getBalance($address, EpochNumber::latestConfirmed());
         $this->assertInstanceOf(Drip::class, $drip2);
     }
 
@@ -174,7 +174,7 @@ class CfxTest extends TestCase
 
         $this->assertSame(FormatUtil::numberToHex($epochNumber, true), $res1["epochNumber"]);
 
-        $res2 = $cfx->getBlockByEpochNumber(EpochNumber::LatestMined, false);
+        $res2 = $cfx->getBlockByEpochNumber(EpochNumber::latestMined(), false);
         $this->assertIsString($res2["epochNumber"]);
     }
 
@@ -312,7 +312,7 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        $res1 = $cfx->getBlocksByEpoch(EpochNumber::LatestMined);
+        $res1 = $cfx->getBlocksByEpoch(EpochNumber::latestMined());
         $res2 = $cfx->getBlocksByEpoch('0x4350b21');
 
         $this->assertIsArray($res1);
@@ -323,7 +323,7 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        $res = $cfx->getSkippedBlocksByEpoch(EpochNumber::LatestMined);
+        $res = $cfx->getSkippedBlocksByEpoch(EpochNumber::latestMined());
 
         $this->assertIsArray($res);
     }
@@ -352,7 +352,7 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        $res = $cfx->getInterestRate(EpochNumber::LatestState);
+        $res = $cfx->getInterestRate(EpochNumber::latestState());
 
         $this->assertInstanceOf(BigInteger::class, $res);
     }
@@ -361,7 +361,7 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        $res = $cfx->getAccumulateInterestRate(EpochNumber::LatestState);
+        $res = $cfx->getAccumulateInterestRate(EpochNumber::latestState());
 
         $this->assertInstanceOf(BigInteger::class, $res);
     }
@@ -370,7 +370,7 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        $res = $cfx->getPoSEconomics(EpochNumber::LatestState);
+        $res = $cfx->getPoSEconomics(EpochNumber::latestState());
 
         $this->assertArrayHasKey('distributablePosInterest', $res);
         $this->assertArrayHasKey('lastDistributeBlock', $res);
@@ -395,7 +395,7 @@ class CfxTest extends TestCase
     {
         $cfx = $this->getCfx();
 
-        $resArr = $cfx->getBlockRewardInfo(EpochNumber::LatestConfirmed);
+        $resArr = $cfx->getBlockRewardInfo(EpochNumber::latestConfirmed());
 
         $this->assertIsArray($resArr);
 

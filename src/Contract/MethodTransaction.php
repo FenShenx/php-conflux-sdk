@@ -75,8 +75,8 @@ class MethodTransaction
 
         $params = [$options];
 
-        if (!empty($epochNumber))
-            $params[] = $epochNumber;
+        if (!empty($epochNumber?->getCase()))
+            $params[] = $epochNumber->getCase();
 
         return $this->conflux->getCfx()->estimateGasAndCollateral(...$params);
     }
