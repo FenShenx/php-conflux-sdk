@@ -8,7 +8,7 @@ use Fenshenx\PhpConfluxSdk\Methods\IMethod;
 abstract class BaseRpcNamespace
 {
     public function __construct(
-        protected readonly Conflux $conflux
+        protected Conflux $conflux
     )
     {
 
