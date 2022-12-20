@@ -161,6 +161,15 @@ class ContractTest extends TestCase
         $this->assertIsString($hash);
     }
 
+    public function testContract2EstimateGasAndCollateral()
+    {
+        $contract = $this->getContract2();
+        $account = $this->getAccount();
+
+        $hash = $contract->mint("cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t", 1, '0x00')->sendTransaction($account);
+        $this->assertIsString($hash);
+    }
+
     private function getAccount()
     {
         if (empty($this->conflux))
@@ -174,6 +183,19 @@ class ContractTest extends TestCase
     private function getContract()
     {
         $contractAddress = "cfxtest:acgh0vts2ga63dpwrbtzcgbz9m4x01bpkjwu9sufp4";
+
+        if (empty($this->conflux))
+            $this->conflux = new Conflux($this->testHost, $this->networkId);
+
+        $abi = json_decode(file_get_contents(__DIR__.'/../static/'.$contractAddress.'.json'), true);
+        $contract = $this->conflux->getContract($abi, $contractAddress);
+
+        return $contract;
+    }
+
+    private function getContract2()
+    {
+        $contractAddress = "cfxtest:acfc8k45e2f8hkumem2xttw40zk4jstx0uw0r2561c";
 
         if (empty($this->conflux))
             $this->conflux = new Conflux($this->testHost, $this->networkId);

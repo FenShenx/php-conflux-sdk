@@ -25,7 +25,7 @@ class Transaction
         public Drip $gas,
         public string $to,
         public Drip $value,
-        public int|string|BigInteger $storageLimit,
+        public int|string|BigInteger|Drip $storageLimit,
         public int|string|BigInteger $epochHeight,
         public int $chainId,
         public string|null|int $data = 0
@@ -66,10 +66,13 @@ class Transaction
         return $rlp->encode($raw);
     }
 
-    private function getBitintVal(int|string|BigInteger $value)
+    private function getBitintVal(int|string|BigInteger|Drip $value)
     {
         if ($value instanceof BigInteger)
             return FormatUtil::zeroPrefix($value->toHex());
+
+        if ($value instanceof Drip)
+            return $value->getDripHex();
 
         return $value;
     }
