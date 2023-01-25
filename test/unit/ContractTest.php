@@ -170,6 +170,15 @@ class ContractTest extends TestCase
         $this->assertIsString($hash);
     }
 
+    public function testContract2SetApprovalForAll()
+    {
+        $contract = $this->getContract2();
+        $account = $this->getAccount();
+
+        $hash = $contract->setApprovalForAll("cfxtest:aarhpzjeazzg3dbt2cptkcm933dhhxf49umnnt56p2", true)->sendTransaction($account);
+        $this->assertIsString($hash);
+    }
+
     private function getAccount()
     {
         if (empty($this->conflux))
