@@ -173,9 +173,9 @@ class ContractTest extends TestCase
     public function testContract2SetApprovalForAll()
     {
         $contract = $this->getContract2();
-        $account = $this->getAccount();
+        $account = $this->conflux->getWallet()->addRandom();
 
-        $hash = $contract->setApprovalForAll("cfxtest:aarhpzjeazzg3dbt2cptkcm933dhhxf49umnnt56p2", true)->sendTransaction($account);
+        $hash = $contract->setApprovalForAll("cfxtest:aatmav6mw5tps6h61jp5wb0xwdk9f649gew3m3a04t", true)->sendTransaction($account);
         $this->assertIsString($hash);
     }
 

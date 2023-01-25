@@ -98,12 +98,12 @@ class Cfx extends BaseRpcNamespace
             if (empty($nonce))
                 $nonce = $this->getNextNonce($fromAddress);
 
-            if ($nonce->toHex() == '')
-                $nonce = '0';
-            else
-                $nonce = $nonce->toHex();
+            $nonce = $nonce->toHex();
 
-            $options['nonce'] = FormatUtil::zeroPrefix($nonce);
+            if ($nonce == '')
+                $options['nonce'] = $nonce;
+            else
+                $options['nonce'] = FormatUtil::zeroPrefix($nonce);
         }
 
         if (empty($options['chainId']))
@@ -128,13 +128,19 @@ class Cfx extends BaseRpcNamespace
                 $gas = $defaultTransactionGasPrice;
                 $storageLimit = $this->transactionStorageLimit;
             } else {
+
+                if ($options['nonce'] == '') {
+
+                    $newOptions = $options;
+                    $newOptions['nonce'] = '0x00';
+                }
                 /**
                  * @var Drip $gasLimit
                  * @var Drip $gasUsed
                  * @var Drip $storageCollateralized
                  */
                 list('gasLimit' => $gasLimit, 'gasUsed' => $gasUsed, 'storageCollateralized' => $storageCollateralized)
-                    = $this->estimateGasAndCollateral($options);
+                    = $this->estimateGasAndCollateral($newOptions ?? $options);
 
                 if (!empty($defaultGasRatio)) {
 
